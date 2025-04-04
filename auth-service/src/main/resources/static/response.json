@@ -18,5 +18,9 @@
   "notFoundStatus": {
     "code": 404,
     "message": "Not Found"
+  },
+  "internalServerErrorStatus": {
+    "code": 500,
+    "message": "Not Found"
   }
 }

@@ -12,7 +12,7 @@ public enum  OpenApiStatusEnum {
     NORMAL("NORMAL");
     private final String value;
 
-    OpenApiStatusEnum(String value) {
-        this.value = value;
-    }
+//    OpenApiStatusEnum(String value) {
+//        this.value = value;
+//    }
 }

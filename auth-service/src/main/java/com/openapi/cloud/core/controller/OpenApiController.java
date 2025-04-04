@@ -3,6 +3,7 @@ package com.openapi.cloud.core.controller;
 import com.openapi.cloud.core.model.dto.OpenApiRequest;
 
 import com.openapi.cloud.core.model.dto.OpenApiResponse;
+import com.openapi.cloud.core.model.dto.ProductDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -10,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -155,5 +157,41 @@ public class OpenApiController {
     public ResponseEntity<String> deleteCustomer(@PathVariable("customerId") Long customerId) {
         return ResponseEntity.ok("Resource deleted successfully");
     }
+
+
+
+    /**
+     * POST /customer
+     *
+     * @param customer (required)
+     * @return successful operation (status code 201)
+     * or Bad Request. (status code 400)
+     * or Unauthorized. (status code 401)
+     * or Forbidden. (status code 403)
+     * or Internal Server Error. (status code 500)
+     * or Service Unavailable. (status code 503)
+     */
+    @Operation(operationId = "createProduct", tags = {"Product"}, summary = "Add new product",
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "Resource created successfully",
+                            content = @Content(mediaType = "application/json", examples = {@ExampleObject(value = "{\"customerId\": 1, \"message\": \"Resource created successfully\" }")})),
+                    @ApiResponse(responseCode = "400", ref = "badRequestStatus"),
+                    @ApiResponse(responseCode = "401", ref = "unauthorizedStatus"),
+                    @ApiResponse(responseCode = "403", ref = "forbiddenStatus"),
+                    @ApiResponse(responseCode = "500", ref = "internalServerErrorStatus"),
+            }
+    )
+
+    @PostMapping("/createproduct")
+    public ResponseEntity<ProductDto> createProduct(@Valid @RequestBody(required = true) ProductDto product) {
+        try{
+            ProductDto newProduct = new ProductDto();
+            return new ResponseEntity<>(newProduct, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 
 }

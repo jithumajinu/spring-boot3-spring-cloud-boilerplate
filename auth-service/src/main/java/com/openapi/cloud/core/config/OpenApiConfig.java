@@ -20,10 +20,10 @@ import java.util.List;
 @Configuration
 public class OpenApiConfig {
 
-    @Value("${aig.openapi.url}")
+    @Value("${openapi.url}")
     private String openAPIUrl;
 
-    @Value("${aig.openapi.env}")
+    @Value("${openapi.env}")
     private String openAPIEnv;
 
     @Bean
