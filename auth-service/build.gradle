@@ -13,6 +13,20 @@ java {
 	}
 }
 
+bootRun {
+	environment SPRING_PROFILES_ACTIVE : environment.SPRING_PROFILES_ACTIVE ?: 'local'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+//	configureEach {
+//		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+//		exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
+//	}
+}
+
 repositories {
 	mavenCentral()
 }
@@ -20,9 +34,23 @@ repositories {
 ext {
 	set('springCloudVersion', "2023.0.0")
 }
+compileJava.options.encoding = 'UTF-8'
+tasks.withType(JavaCompile).configureEach {
+	options.encoding = 'UTF-8'
+}
+
+javadoc {
+	options.encoding = 'UTF-8'
+}
+
+tasks.withType(JavaCompile).configureEach {
+	enabled = false
+}
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
+	implementation 'org.json:json:20231013'
 	implementation 'org.springframework.cloud:spring-cloud-starter-config'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -39,4 +67,18 @@ dependencyManagement {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+def printTestCount = { desc, result ->
+	if (!desc.parent) {
+		println "@@ Test Results: ${result.resultType} ($result.testCount} tests, ${result.successfulTestCount} success, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)"
+	}
+
+}
+
+test {
+	testLogging {
+		events "STARTED", "PASSED", "FAILED", "SKIPPED"
+		afterSuite printTestCount
+	}
 }

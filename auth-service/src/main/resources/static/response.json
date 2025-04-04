@@ -1,0 +1,22 @@
+{
+  "noContentStatus": {
+    "code": 204,
+    "message": "No Content"
+  },
+  "badRequestStatus": {
+    "code": 400,
+    "message": "Bad Request"
+  },
+  "unauthorizedStatus": {
+    "code": 401,
+    "message": "Unauthorized"
+  },
+  "forbiddenStatus": {
+    "code": 403,
+    "message": "Forbidden"
+  },
+  "notFoundStatus": {
+    "code": 404,
+    "message": "Not Found"
+  }
+}
