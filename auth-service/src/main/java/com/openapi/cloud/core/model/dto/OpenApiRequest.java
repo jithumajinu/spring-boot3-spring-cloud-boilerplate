@@ -1,6 +1,5 @@
 package com.openapi.cloud.core.model.dto;
 
-//import com.aig.openapi.constant.CustomerStatusType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.openapi.cloud.core.model.enums.OpenApiStatusEnum;
