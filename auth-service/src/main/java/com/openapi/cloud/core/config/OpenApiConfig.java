@@ -46,7 +46,7 @@ public class OpenApiConfig {
         ApiResponse badRequestStatus = new ApiResponse().content(
                 new Content().addMediaType(MediaType.APPLICATION_JSON_VALUE,
                         new io.swagger.v3.oas.models.media.MediaType().addExamples("default",
-                                new Example().value(readJsonFileToJsonObject.read().get("badRequestStatus").toString())
+                                new Example().value("400")
                         )
                 )
         ).description("Bad Request!");
@@ -58,7 +58,7 @@ public class OpenApiConfig {
         ApiResponse unauthorizedStatus = new ApiResponse().content(
                 new Content().addMediaType(MediaType.APPLICATION_JSON_VALUE,
                         new io.swagger.v3.oas.models.media.MediaType().addExamples("default",
-                                new Example().value(readJsonFileToJsonObject.read().get("unauthorizedStatus").toString())
+                                new Example().value("401")
                         )
                 )
         ).description("Unauthorized!");
@@ -70,7 +70,7 @@ public class OpenApiConfig {
         ApiResponse forbiddenStatus = new ApiResponse().content(
                 new Content().addMediaType(MediaType.APPLICATION_JSON_VALUE,
                         new io.swagger.v3.oas.models.media.MediaType().addExamples("default",
-                                new Example().value(readJsonFileToJsonObject.read().get("forbiddenStatus").toString())
+                                new Example().value("403")
                         )
                 )
         ).description("Forbidden!");
@@ -82,7 +82,7 @@ public class OpenApiConfig {
         ApiResponse notFoundStatus = new ApiResponse().content(
                 new Content().addMediaType(MediaType.APPLICATION_JSON_VALUE,
                         new io.swagger.v3.oas.models.media.MediaType().addExamples("default",
-                                new Example().value(readJsonFileToJsonObject.read().get("notFoundStatus").toString())
+                                new Example().value("404")
                         )
                 )
         ).description("Not Found!");
@@ -95,7 +95,7 @@ public class OpenApiConfig {
         ApiResponse internalServerErrorStatus = new ApiResponse().content(
                 new Content().addMediaType(MediaType.APPLICATION_JSON_VALUE,
                         new io.swagger.v3.oas.models.media.MediaType().addExamples("default",
-                                new Example().value(readJsonFileToJsonObject.read().get("internalServerErrorStatus").toString())
+                                new Example().value("500")
                         )
                 )
         ).description("Internal Server Error!");

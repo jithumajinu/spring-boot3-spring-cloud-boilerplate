@@ -37,3 +37,8 @@ http://localhost:1006/cloud_config/client
 * Swagger UI:  http://localhost:1006/swagger-ui/index.html
 * Browser: http://localhost:1006/
 * Curl:  curl -i http://localhost:1006/
+
+
+response include error
+
+lession 14
