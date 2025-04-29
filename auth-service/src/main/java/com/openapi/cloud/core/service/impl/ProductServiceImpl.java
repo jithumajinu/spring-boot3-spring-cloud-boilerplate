@@ -9,6 +9,8 @@ import com.openapi.cloud.core.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class ProductServiceImpl implements ProductService {
@@ -17,18 +19,27 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDto createProduct(ProductDto productDto) {
-      Product product = ProductMapper.MAPPER.mapToProduct(productDto);
-      Product savedProduct = productRepository.save(product);
-      return ProductMapper.MAPPER.mapToProductDto(savedProduct);
+        Product product = ProductMapper.MAPPER.toEntity(productDto);
+        Product savedProduct = productRepository.save(product);
+        return ProductMapper.MAPPER.toDto(savedProduct);
     }
 
     @Override
     public ProductDto getProductById(Long productId) {
 
         Product product = productRepository.findById(productId).orElseThrow(
-                () -> new ResourceNotFoundException("Product", "id",productId)
+                () -> new ResourceNotFoundException("Product", "id", productId)
         );
 
-        return ProductMapper.MAPPER.mapToProductDto(product);
+        return ProductMapper.MAPPER.toDto(product);
+    }
+
+    @Override
+    public List<ProductDto> getProductList() {
+        //List<Product> productList = productRepository.findAllByDeleteFlag(DeleteFlag.VALID);
+        // List<Product> productList = productRepository.findAllByDeleteFlag(false);
+        List<Product> productList = productRepository.findAllProduct();
+
+        return ProductMapper.MAPPER.toDtoList(productList);
     }
 }

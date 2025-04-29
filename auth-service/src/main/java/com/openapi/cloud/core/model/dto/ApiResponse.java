@@ -1,26 +1,23 @@
 package com.openapi.cloud.core.model.dto;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
-//import org.apache.commons.collections.CollectionUtils;
-//import org.apache.commons.collections.MapUtils;
+import com.google.common.collect.Maps;
+import com.openapi.cloud.core.service.MessageResourceHolder;
+import com.openapi.cloud.core.service.MessageResourceService;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MapUtils;
+import com.openapi.cloud.core.constants.ApiErrorCode;
 import org.apache.commons.lang3.StringUtils;
 import com.fasterxml.jackson.annotation.JsonProperty;
-//import com.google.common.collect.Maps;
-
-//import io.crm.app.core.constant.ApiErrorCode;
-
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @AllArgsConstructor
 @Getter
@@ -44,14 +41,9 @@ public class ApiResponse<T> implements Serializable {
     @JsonProperty("hasData")
     public boolean hasData() {
         if (data instanceof Collection<?>) {
-            //return CollectionUtils.isNotEmpty((Collection<?>) data);
-            // return data != null && !((Collection<?>) data).isEmpty();
-            return !((Collection<?>) data).isEmpty();
-
+            return CollectionUtils.isNotEmpty((Collection<?>) data); //return !((Collection<?>) data).isEmpty();
         } else if (data instanceof Map<?, ?>) {
-            return !((Map<?, ?>) data).isEmpty();
-            //  return data != null && !((Map<?, ?>) data).isEmpty();
-            // return MapUtils.isNotEmpty((Map<?, ?>) data);
+            return MapUtils.isNotEmpty((Map<?, ?>) data);  //return !((Map<?, ?>) data).isEmpty();
         } else {
             return data != null;
         }
@@ -62,6 +54,14 @@ public class ApiResponse<T> implements Serializable {
         return this.error != null && this.error.hasError();
     }
 
+
+    /**
+     * ApiError for error message
+     * errorCode
+     * message
+     * errors
+     * errorsAsList
+     */
     @AllArgsConstructor
     @NoArgsConstructor
     @Getter
@@ -72,36 +72,27 @@ public class ApiResponse<T> implements Serializable {
 
         private static final long serialVersionUID = 3687524794654930688L;
 
-      //  private ApiErrorCode code;
-
-        private String code;
-
+        private ApiErrorCode errorCode;
         private String message;
 
-//        @Builder.Default
-//        private Map<String, ErrorDetail> errors = Maps.newHashMap();
-
         @Builder.Default
-        private Map<String, ErrorDetail> errors = new HashMap<>();
-
+        private Map<String, ErrorDetail> errors = Maps.newHashMap();
 
         public Collection<ErrorDetail> getErrorsAsList() {
             return errors != null ? errors.values() : Collections.emptyList();
         }
 
         public boolean hasError() {
-            return this.code != null;
+            return this.errorCode != null;
         }
 
         public String getMessage() {
-            if (StringUtils.isNotBlank(this.message))
+            if (StringUtils.isNotBlank(this.message)) {
                 return this.message;
-            if (this.code != null) {
-                return "sample message";
-                //  return this.code.getLabel();
-//				return Optional.ofNullable(this.code.getLabel()).orElse("Null Value");
             }
-
+            if (this.errorCode != null) {
+                return MessageResourceHolder.get().getLabel(this.errorCode.getLabel());
+            }
             return null;
         }
 
@@ -114,9 +105,7 @@ public class ApiResponse<T> implements Serializable {
         public static final class ErrorDetail implements Serializable {
 
             private static final long serialVersionUID = 5278702444419535244L;
-
             private String code;
-
             private String message;
         }
     }

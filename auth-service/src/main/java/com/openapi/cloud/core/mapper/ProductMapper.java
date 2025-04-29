@@ -1,6 +1,7 @@
 package com.openapi.cloud.core.mapper;
 
 import com.openapi.cloud.core.model.dto.ProductDto;
+import com.openapi.cloud.core.model.dto.request.ProductRequest;
 import com.openapi.cloud.core.model.entities.Product;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -13,11 +14,17 @@ public interface ProductMapper {
 
     ProductMapper MAPPER = Mappers.getMapper(ProductMapper.class);
 
-    ProductDto mapToProductDto(Product product);
-    Product mapToProduct(ProductDto productDto);
+    ProductDto toDto(Product product);
 
-    List<ProductDto> mapToProductDtoList(List<Product> products);
-    List<Product> mapToProductList(List<ProductDto> productDtos);
+    ProductDto toDto(ProductRequest productRequest);
+
+    Product toEntity(ProductDto productDto);
+
+    Product toEntity(ProductRequest productRequest);
+
+    List<ProductDto> toDtoList(List<Product> products);
+
+    List<Product> toEntityList(List<ProductDto> productDtos);
 
 
 //    If your field names don’t match or need transformation:
@@ -41,7 +48,6 @@ public interface ProductMapper {
 //    default String formatPrice(BigDecimal price) {
 //        return "$" + price.setScale(2, RoundingMode.HALF_UP).toString();
 //    }
-
 
 
 //    @AfterMapping

@@ -1,6 +1,5 @@
 package com.openapi.cloud.core.config;
 
-import com.openapi.cloud.core.util.JsonToObject;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -13,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -29,15 +29,13 @@ public class OpenApiConfig {
     @Bean
     public OpenAPI baseOpenAPI() throws IOException {
 
-        JsonToObject readJsonFileToJsonObject = new JsonToObject();
+        // JsonToObject readJsonFileToJsonObject = new JsonToObject();
 
         Server openApiServer = new Server();
         openApiServer.setUrl(openAPIUrl);
         openApiServer.setDescription(openAPIEnv);
 
-        Info info = new Info()
-                .title("Spring Doc")
-                .version("1.0.0");  // release version?
+        Info info = new Info().title("Spring Doc").version("1.0.0");
 
         /*
          * Client error
