@@ -28,17 +28,24 @@ public class ProductServiceImpl implements ProductService {
     public ProductDto getProductById(Long productId) {
 
         Product product = productRepository.findById(productId).orElseThrow(
-                () -> new ResourceNotFoundException("Product", "id", productId)
-        );
+                () -> new ResourceNotFoundException("Product", "id", productId));
 
         return ProductMapper.MAPPER.toDto(product);
     }
 
     @Override
     public List<ProductDto> getProductList() {
-        //List<Product> productList = productRepository.findAllByDeleteFlag(DeleteFlag.VALID);
+        // List<Product> productList =
+        // productRepository.findAllByDeleteFlag(DeleteFlag.VALID);
         // List<Product> productList = productRepository.findAllByDeleteFlag(false);
         List<Product> productList = productRepository.findAllProduct();
+
+        productList.stream().forEach(System.out::println);
+        // productList.forEach(product -> System.out.println(product.getName()));
+        // productList.stream()
+        // .forEach(product -> System.out.printf("ID: %d, Name: %s, Price: %.2f%n", 
+        //     product.getId(), 
+        //     product.getName()));
 
         return ProductMapper.MAPPER.toDtoList(productList);
     }

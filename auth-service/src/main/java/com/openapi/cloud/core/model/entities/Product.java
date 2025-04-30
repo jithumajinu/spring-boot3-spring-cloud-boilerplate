@@ -1,5 +1,6 @@
 package com.openapi.cloud.core.model.entities;
 
+import com.openapi.cloud.core.model.entities.audit.DateAudit;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,7 +13,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Product extends AuditableEntity {
+public class Product extends DateAudit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
