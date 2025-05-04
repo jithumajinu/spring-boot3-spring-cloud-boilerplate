@@ -5,8 +5,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum DeleteFlag {
 
-    VALID(0),
-    INVALID(1);
+    ACTIVE(0),
+    DELETED(1);
 
     private final int flag;
 

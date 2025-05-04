@@ -65,6 +65,16 @@ cat output.txt
 
 
 
+// In your @Slf4j annotated class
+log.error("Error message");
+log.warn("Warning message");
+log.info("Info message");
+log.debug("Debug message");
+log.trace("Trace message");
+
+
+
+
 
 
 

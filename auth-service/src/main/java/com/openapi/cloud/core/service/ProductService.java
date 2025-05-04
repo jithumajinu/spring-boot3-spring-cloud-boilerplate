@@ -1,6 +1,8 @@
 package com.openapi.cloud.core.service;
 
+import com.openapi.cloud.core.model.dto.ModelPage;
 import com.openapi.cloud.core.model.dto.ProductDto;
+import com.openapi.cloud.core.model.dto.request.GetAllProductRequest;
 
 import java.util.List;
 
@@ -11,4 +13,6 @@ public interface ProductService {
     ProductDto getProductById(Long productId);
 
     List<ProductDto> getProductList();
+
+    ModelPage<ProductDto> getProductPage(GetAllProductRequest request);
 }

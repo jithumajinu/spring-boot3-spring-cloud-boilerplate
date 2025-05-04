@@ -1,7 +1,5 @@
 package com.openapi.cloud.core.annotations;
 
-
-import com.openapi.cloud.core.model.dto.OpenApiResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -24,7 +22,7 @@ public interface OpenApiOperations {
             responses = {
                     @ApiResponse(responseCode = "200", content = {
                             @Content(mediaType = "application/json", array = @ArraySchema(
-                                    schema = @Schema(implementation = OpenApiResponse.class)))
+                                    schema = @Schema(implementation = com.openapi.cloud.core.model.dto.ApiResponse.class)))
                     }),
                     @ApiResponse(responseCode = "401", ref = "unauthorizedStatus"),
                     @ApiResponse(responseCode = "403", ref = "forbiddenStatus"),
@@ -55,7 +53,7 @@ public interface OpenApiOperations {
             responses = {
                     @ApiResponse(responseCode = "200", content = {
                             @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = OpenApiResponse.class))
+                                    schema = @Schema(implementation = com.openapi.cloud.core.model.dto.ApiResponse.class))
                     }),
                     @ApiResponse(responseCode = "401", ref = "unauthorizedStatus"),
                     @ApiResponse(responseCode = "403", ref = "forbiddenStatus"),

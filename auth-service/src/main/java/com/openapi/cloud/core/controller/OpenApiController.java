@@ -8,14 +8,15 @@ import com.openapi.cloud.core.mapper.ProductMapper;
 import com.openapi.cloud.core.model.ValidationGroups;
 import com.openapi.cloud.core.model.dto.ApiResponse;
 import com.openapi.cloud.core.model.dto.ApiResponse.ApiError;
-import com.openapi.cloud.core.model.dto.OpenApiRequest;
-import com.openapi.cloud.core.model.dto.OpenApiResponse;
+import com.openapi.cloud.core.model.dto.ModelPage;
 import com.openapi.cloud.core.model.dto.ProductDto;
+import com.openapi.cloud.core.model.dto.request.GetAllProductRequest;
 import com.openapi.cloud.core.model.dto.request.ProductRequest;
 import com.openapi.cloud.core.service.ProductService;
 import com.openapi.cloud.core.service.UserNotificationService;
 
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 // @RefreshScope
 @RestController
 @RequestMapping("/openApis")
@@ -48,12 +50,41 @@ public class OpenApiController extends AbstractCoreUtilController {
     @OpenApiOperations.OpenApiListOperation(tags = "Product", summary = "", description = "Product list", operationId = "ProductList")
     @GetMapping("/product")
     public ApiResponse<List<ProductDto>> productList() {
-
+        log.info("API:/product get all products ::start");
         var responseBuilder = ApiResponse.<List<ProductDto>>builder().flag(true);
         List<ProductDto> ProductList = productService.getProductList();
         responseBuilder.data(ProductList);
+        log.info("API:/product get all products ::end");
         return responseBuilder.build();
     }
+
+
+    /**
+     * GET
+     */
+    @OpenApiOperations.OpenApiListOperation(tags = "Product", summary = "", description = "Product list Paged", operationId = "ProductListPaged")
+    @GetMapping("/product-page")
+    public ApiResponse<ModelPage<ProductDto>> productListPaged(
+            GetAllProductRequest request,
+            HttpServletResponse httpServletResponse
+
+    ) {
+        log.info("API:/product-page ::start");
+
+        System.out.println("FindCustomerPageRequest: keyword : " + request.getKeyword());
+        System.out.println("FindCustomerPageRequest: page: " + request.getPage());
+        System.out.println("FindCustomerPageRequest: pagingSize: " + request.getPagingSize());
+        System.out.println("FindCustomerPageRequest: sortBy: " + request.getSortBy());
+
+        var responseBuilder = ApiResponse.<ModelPage<ProductDto>>builder().flag(true);
+        var productList = productService.getProductPage(request);
+
+        System.out.println("Msg: beforBind-productList" + productList);
+        responseBuilder.data(productList);
+        log.info("API:product-page ::end");
+        return responseBuilder.build();
+    }
+
 
     /**
      * POST /product
@@ -137,14 +168,21 @@ public class OpenApiController extends AbstractCoreUtilController {
      */
     @OpenApiOperations.OpenApiObjectOperation(tags = "Notification", summary = "Notification", description = "Notification", operationId = "Notification")
     @PostMapping("/send")
-    public ResponseEntity<OpenApiResponse> sendNotification(@RequestParam String to, @RequestParam String subject,
-                                                            @RequestParam String message, @RequestParam NotificationType type) {
+    public ApiResponse<String> sendNotification(@RequestParam String to, @RequestParam String subject,
+                                                @RequestParam String message, @RequestParam NotificationType type) {
+
+        log.info("API:/send notification ::start");
+
+        var responseBuilder = ApiResponse.<String>builder().flag(true);
         if (type == NotificationType.EMAIL) {
+            log.error("API:/send notification ::exception throw");
             throw new ProductNotFoundException("email type exception");
         }
         notificationService.notifyUser(to, subject, message, type);
-        return new ResponseEntity<>(HttpStatus.OK);
+
+        responseBuilder.data("Success");
+        log.info("API:/send notification ::end");
+        return responseBuilder.build();
 
     }
-
 }

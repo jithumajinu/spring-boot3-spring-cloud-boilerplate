@@ -1,6 +1,6 @@
 package com.openapi.cloud.core.model.entities;
 
-import com.openapi.cloud.core.model.entities.audit.DateAudit;
+import com.openapi.cloud.core.model.entities.audit.UserDateAudit;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,11 +9,11 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Product extends DateAudit {
+public class Product extends UserDateAudit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
