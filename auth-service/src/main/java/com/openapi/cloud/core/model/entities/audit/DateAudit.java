@@ -36,8 +36,8 @@ public abstract class DateAudit implements Serializable {
     private LocalDateTime updatedAt;
 
     @JsonIgnore
-    @CreatedDate
-    @Column(name = "created_at", updatable = false, insertable = false, nullable = false)
+    @LastModifiedDate
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @PrePersist

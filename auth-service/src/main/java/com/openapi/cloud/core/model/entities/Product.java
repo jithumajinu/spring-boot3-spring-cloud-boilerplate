@@ -1,22 +1,25 @@
 package com.openapi.cloud.core.model.entities;
 
+import org.checkerframework.checker.units.qual.C;
+
 import com.openapi.cloud.core.model.entities.audit.UserDateAudit;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
-@Entity
-@Table(name = "products")
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
+@ToString(callSuper = true)
+@SuperBuilder
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode(callSuper = false)
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Entity
+@Table(name = "product")
 public class Product extends UserDateAudit {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "product_id", nullable = false)
     private Long id;
 
     @Column(name = "name")

@@ -13,9 +13,14 @@ import com.openapi.cloud.core.repository.ProductRepository;
 import com.openapi.cloud.core.service.ProductService;
 import com.openapi.cloud.core.util.PageUtil;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Objects;
 
 @Service
 @AllArgsConstructor
@@ -43,21 +48,85 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductDto> getProductList() {
         // List<Product> productList = productRepository.findAllProduct();
         List<Product> productList = productRepository.findAllByDeleteFlag(DeleteFlag.ACTIVE);
-        productList.stream().forEach(System.out::println);
+        productList.forEach(System.out::println);
         return ProductMapper.MAPPER.toDtoList(productList);
     }
 
+
     @Override
     public ModelPage<ProductDto> getProductPage(GetAllProductRequest request) {
+        // Build search conditions
+        ProductPageCondition condition = buildSearchCondition(request);
 
-        var conditionBuilder = ProductPageCondition.builder()
-                .keyword(request.getKeyword())
-                .sortItem(request.getSortBy());
+        // Create pageable object
+        Pageable pageable = createPageable(request);
 
-        var pageable = PageUtil.toPageable(request.getPage(), request.getPagingSize().getCode(), Maps.newHashMap());
+        // Fetch and transform data
+        Page<Product> productPage = productRepository.findPageByCondition(condition, pageable);
 
-        var page = productRepository.findPageByCondition(conditionBuilder.build(), pageable);
-
-        return null;
+        // Map to DTOs and build response
+        return createModelPage(productPage);
     }
+
+    private ProductPageCondition buildSearchCondition(GetAllProductRequest request) {
+        return ProductPageCondition.builder()
+                .keyword(request.getKeyword())
+                .sortItem(request.getSortBy())
+                .build();
+    }
+
+    private Pageable createPageable(GetAllProductRequest request) {
+        return PageUtil.toPageable(
+                request.getPage(),
+                request.getPagingSize().getCode(),
+                Collections.emptyMap()
+        );
+    }
+
+    private ModelPage<ProductDto> createModelPage(Page<Product> page) {
+        List<ProductDto> productList = page.hasContent()
+                ? ProductMapper.MAPPER.toDtoList(page.getContent())
+                : Collections.emptyList();
+
+        return ModelPage.<ProductDto>builder()
+                .content(productList)
+                .next(page.hasNext())
+                .previous(page.hasPrevious())
+                .pageNumber(page.getNumber() + 1)
+                .pageSize(page.getSize())
+                .totalCount(page.getTotalElements())
+                .totalPages(page.getTotalPages())
+                .build();
+    }
+
+//    @Override
+//    public ModelPage<ProductDto> getProductPage(GetAllProductRequest request) {
+//
+//        var conditionBuilder = ProductPageCondition.builder()
+//                .keyword(request.getKeyword())
+//                .sortItem(request.getSortBy()).build();
+//
+//        Pageable pageable = PageUtil.toPageable(request.getPage(), request.getPagingSize().getCode(),
+//                Maps.newHashMap());
+//
+//        Page<Product> page = productRepository.findPageByCondition(conditionBuilder, pageable);
+//
+//        List<ProductDto> productList = new ArrayList<>(); // Lists.newArrayList();
+//
+//        if (page.hasContent()) {
+//            productList = ProductMapper.MAPPER.toDtoList(page.getContent());
+//        }
+//
+//        return ModelPage.<ProductDto>builder()
+//                .content(productList) // responseList
+//                .next(page.hasNext())
+//                .previous(page.hasPrevious())
+//                .pageNumber(page.getNumber() + 1)
+//                .pageSize(page.getSize())
+//                .totalCount(page.getTotalElements())
+//                .totalPages(page.getTotalPages())
+//                .build();
+//    }
+
+
 }

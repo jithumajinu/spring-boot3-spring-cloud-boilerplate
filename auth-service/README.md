@@ -5,14 +5,13 @@ Run: `./gradlew clean bootRun`
 Run: `./gradlew clean`
 Run: `./gradlew bootRun`
 
- ./gradlew clean build
+./gradlew clean build
 
 #### Check profile
 
 http://localhost:1006/client
 
 http://localhost:1006/message
-
 
 Windows
 gradlew.bat build
@@ -23,16 +22,23 @@ gradlew.bat --version
 Optional
 ./gradlew bootRun --args='--spring.profiles.active=dev'
 
-
 #### Check profile
 
 http://localhost:1006/cloud_config/message
 
 http://localhost:1006/cloud_config/client
 
+## login creds
 
+{
+"name": "jithumajinu",
+"username": "jithu.majinu",
+"email": "jithu.majinu@gmail.com",
+"password": "jithutest"
+}
 
 ## URLS
+
 ```
 * Swagger UI:  http://localhost:1006/swagger-ui/index.html
 * Browser: http://localhost:1006/

@@ -1,0 +1,46 @@
+2025-05-05 00:03:31 [http-nio-1006-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-05-05 00:03:31 [http-nio-1006-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-05-05 00:03:31 [http-nio-1006-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 10 ms
+2025-05-05 00:03:31 [http-nio-1006-exec-1] INFO  c.o.c.c.controller.OpenApiController - API:/product-page ::start
+2025-05-05 00:03:32 [http-nio-1006-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        distinct p1_0.product_id,
+        p1_0.created_at,
+        p1_0.created_by,
+        p1_0.delete_flag,
+        p1_0.deleted_at,
+        p1_0.deleted_by,
+        p1_0.description,
+        p1_0.model,
+        p1_0.name,
+        p1_0.updated_at,
+        p1_0.updated_by 
+    from
+        product p1_0 
+    where
+        (
+            p1_0.name like ? escape ''
+        ) 
+        and p1_0.delete_flag=? 
+    order by
+        p1_0.product_id 
+    limit
+        ?, ?
+2025-05-05 00:03:32 [http-nio-1006-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter (1:VARCHAR) <- [%product%]
+2025-05-05 00:03:32 [http-nio-1006-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter (2:INTEGER) <- [0]
+2025-05-05 00:03:32 [http-nio-1006-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter (3:INTEGER) <- [0]
+2025-05-05 00:03:32 [http-nio-1006-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter (4:INTEGER) <- [10]
+2025-05-05 00:03:32 [http-nio-1006-exec-1] INFO  c.o.c.c.controller.OpenApiController - API:product-page ::end
+2025-05-05 09:47:12 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=8h41m42s27ms).
+2025-05-05 10:36:50 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=12m8s11ms).
+2025-05-05 10:52:41 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m50s138ms).
+2025-05-05 10:56:53 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m12s6ms).
+2025-05-05 11:09:28 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m5s38ms).
+2025-05-05 13:23:43 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2h7m45s199ms).
+2025-05-05 13:38:12 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=58s900ms).
+2025-05-05 16:49:47 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2h49m5s152ms).
+2025-05-05 16:49:50 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-05-05 16:49:50 [SpringApplicationShutdownHook] TRACE o.h.type.spi.TypeConfiguration$Scope - Handling #sessionFactoryClosed from [org.hibernate.internal.SessionFactoryImpl@648e49bd] for TypeConfiguration
+2025-05-05 16:49:50 [SpringApplicationShutdownHook] DEBUG o.h.type.spi.TypeConfiguration$Scope - Un-scoping TypeConfiguration [org.hibernate.type.spi.TypeConfiguration$Scope@2d411281] from SessionFactory [org.hibernate.internal.SessionFactoryImpl@648e49bd]
+2025-05-05 16:49:50 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-05-05 16:49:50 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
