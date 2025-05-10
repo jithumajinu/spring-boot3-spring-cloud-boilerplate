@@ -1,0 +1,50 @@
+{{ define "email.default.html" }}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>{{ .GroupLabels.alertname }}</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    .alert { padding: 15px; margin-bottom: 20px; border: 1px solid transparent; border-radius: 4px; }
+    .critical { background-color: #f2dede; border-color: #ebccd1; color: #a94442; }
+    .warning { background-color: #fcf8e3; border-color: #faebcc; color: #8a6d3b; }
+    .info { background-color: #d9edf7; border-color: #bce8f1; color: #31708f; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+    th { background-color: #f2f2f2; }
+  </style>
+</head>
+<body>
+  <h2>Alert: {{ .GroupLabels.alertname }}</h2>
+  
+  <div class="alert {{ .CommonLabels.severity }}">
+    <strong>Severity:</strong> {{ .CommonLabels.severity }}<br>
+    <strong>Summary:</strong> {{ .CommonAnnotations.summary }}
+  </div>
+  
+  <h3>Details</h3>
+  <p>{{ .CommonAnnotations.description }}</p>
+  
+  <h3>Affected Services</h3>
+  <table>
+    <tr>
+      <th>Instance</th>
+      <th>Application</th>
+      <th>Status</th>
+    </tr>
+    {{ range .Alerts }}
+    <tr>
+      <td>{{ .Labels.instance }}</td>
+      <td>{{ .Labels.application }}</td>
+      <td>{{ .Status }}</td>
+    </tr>
+    {{ end }}
+  </table>
+  
+  <p>
+    <a href="{{ .CommonAnnotations.dashboard_url }}">View Dashboard</a>
+  </p>
+</body>
+</html>
+{{ end }}

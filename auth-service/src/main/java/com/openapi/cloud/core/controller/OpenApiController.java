@@ -47,6 +47,14 @@ public class OpenApiController extends AbstractCoreUtilController {
     /**
      * GET
      */
+    @GetMapping("/triggerError")
+    public ResponseEntity<String> triggerError() {
+        return new ResponseEntity<>("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    /**
+     * GET
+     */
     @OpenApiOperations.OpenApiListOperation(tags = "Product", summary = "", description = "Product list", operationId = "ProductList")
     @GetMapping("/product")
     public ApiResponse<List<ProductDto>> productList() {

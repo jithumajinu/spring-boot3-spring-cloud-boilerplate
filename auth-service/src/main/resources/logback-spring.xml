@@ -49,11 +49,36 @@
         </encoder>
     </appender>
 
+    <!-- JSON Appender for ELK -->
+    <appender name="JSON_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/${LOG_FILE_NAME}-json.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${LOG_FILE_NAME}-json.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>3GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <includeMdcKeyName>userId</includeMdcKeyName>
+            <includeMdcKeyName>requestId</includeMdcKeyName>
+            <includeMdcKeyName>sessionId</includeMdcKeyName>
+            <includeMdcKeyName>remoteIP</includeMdcKeyName>
+            <fieldNames>
+                <timestamp>timestamp</timestamp>
+                <thread>thread</thread>
+                <message>message</message>
+                <logger>logger</logger>
+                <level>level</level>
+            </fieldNames>
+            <customFields>{"application":"auth-service"}</customFields>
+        </encoder>
+    </appender>
+
     <!-- Logger configurations -->
     <root level="INFO">
         <appender-ref ref="Console"/>
         <appender-ref ref="RollingFile"/>
         <appender-ref ref="ErrorFile"/>
+        <appender-ref ref="JSON_FILE"/>
     </root>
 
     <!-- Application specific logging -->
@@ -61,6 +86,7 @@
         <appender-ref ref="RollingFile"/>
         <appender-ref ref="Console"/>
         <appender-ref ref="ErrorFile"/>
+        <appender-ref ref="JSON_FILE"/>
     </logger>
 
 </configuration>

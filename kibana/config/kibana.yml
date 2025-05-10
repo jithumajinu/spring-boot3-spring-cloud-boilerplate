@@ -1,0 +1,20 @@
+---
+## Default Kibana configuration
+server.name: kibana
+server.host: "0.0.0.0"
+elasticsearch.hosts: [ "http://elasticsearch:9200" ]
+
+## X-Pack settings
+xpack.monitoring.ui.container.elasticsearch.enabled: true
+
+## Disable security features
+xpack.security.enabled: false
+
+## Increase timeout for slower environments
+elasticsearch.requestTimeout: 90000
+
+## Default index pattern
+kibana.defaultAppId: "discover"
+
+## Server settings
+server.publicBaseUrl: "http://localhost:5601"

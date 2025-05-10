@@ -1,19 +1,5 @@
 package com.openapi.cloud.core.controller;
 
-//import io.crm.app.core.model.Role;
-//import io.crm.app.core.model.RoleName;
-//import io.crm.app.core.model.User;
-//import io.crm.app.core.payload.*;
-//import io.crm.app.core.security.CurrentUser;
-//import io.crm.app.entity.otp.UserOtpEntity;
-//import io.crm.app.exception.AppException;
-//import io.crm.app.model.otp.OtpUserResponse;
-//import io.crm.app.model.otp.ValidateOtpUserRequest;
-//import io.crm.app.model.otp.ValidateOtpUserResponse;
-//import io.crm.app.repository.OtpUserRepository;
-//import io.crm.app.service.OtpUserService;
-//import io.crm.app.utils.OTPSender;
-
 import com.openapi.cloud.core.constants.ApiErrorCode;
 import com.openapi.cloud.core.exception.AppException;
 import com.openapi.cloud.core.model.dto.ApiResponse;
@@ -31,11 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-//import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

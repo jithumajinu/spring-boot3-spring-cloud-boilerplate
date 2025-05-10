@@ -7,6 +7,7 @@ import io.swagger.v3.oas.models.examples.Example;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.media.Content;
 import io.swagger.v3.oas.models.responses.ApiResponse;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -99,16 +100,24 @@ public class OpenApiConfig {
         ).description("Internal Server Error!");
 
 
-        Components components = new Components();
+        //Components components = new Components();
+
+        // Define Security Scheme
+        Components components = new Components()
+                .addSecuritySchemes("Bearer Authentication",
+                        new SecurityScheme()
+                                .type(SecurityScheme.Type.HTTP)
+                                .scheme("bearer")
+                                .bearerFormat("JWT")
+                                .description("Enter JWT token")
+                );
 
         /* Client error */
         components.addResponses("badRequestStatus", badRequestStatus);
         components.addResponses("unauthorizedStatus", unauthorizedStatus);
         components.addResponses("forbiddenStatus", forbiddenStatus);
         components.addResponses("notFoundStatus", notFoundStatus);
-
-        /* Server error */
-        components.addResponses("internalServerErrorStatus", internalServerErrorStatus);
+        components.addResponses("internalServerErrorStatus", internalServerErrorStatus); // Server error
 
         return new OpenAPI()
                 .components(components)

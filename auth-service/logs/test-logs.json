@@ -1,0 +1,10 @@
+{"@timestamp":"2025-05-10T08:19:05.000Z","level":"INFO","thread":"main","logger":"com.openapi.cloud.Application","message":"Application started successfully"}
+{"@timestamp":"2025-05-10T08:18:05.000Z","level":"DEBUG","thread":"http-nio-8081-exec-1","logger":"com.openapi.cloud.core.controller.AuthController","message":"Processing login request"}
+{"@timestamp":"2025-05-10T08:17:05.000Z","level":"INFO","thread":"http-nio-8081-exec-2","logger":"com.openapi.cloud.core.service.UserService","message":"User authenticated successfully"}
+{"@timestamp":"2025-05-10T08:16:05.000Z","level":"WARN","thread":"http-nio-8081-exec-3","logger":"com.openapi.cloud.core.security.JwtAuthenticationFilter","message":"Token expiration approaching"}
+{"@timestamp":"2025-05-10T08:15:05.000Z","level":"ERROR","thread":"http-nio-8081-exec-4","logger":"com.openapi.cloud.core.exception.GlobalExceptionHandler","message":"Failed to process request: Invalid input"}
+{"@timestamp":"2025-05-10T08:14:05.000Z","level":"INFO","thread":"http-nio-8081-exec-5","logger":"com.openapi.cloud.core.controller.CustomerController","message":"Retrieved customer data"}
+{"@timestamp":"2025-05-10T08:13:05.000Z","level":"DEBUG","thread":"http-nio-8081-exec-6","logger":"com.openapi.cloud.core.repository.CustomerRepository","message":"Executing query: findAllByStatus"}
+{"@timestamp":"2025-05-10T08:12:05.000Z","level":"INFO","thread":"http-nio-8081-exec-7","logger":"com.openapi.cloud.core.service.ProductService","message":"Product created with ID: 12345"}
+{"@timestamp":"2025-05-10T08:11:05.000Z","level":"WARN","thread":"background-prune-1","logger":"com.openapi.cloud.core.service.CacheService","message":"Cache size exceeds threshold, pruning old entries"}
+{"@timestamp":"2025-05-10T08:10:05.000Z","level":"ERROR","thread":"http-nio-8081-exec-8","logger":"com.openapi.cloud.core.service.DatabaseService","message":"Database connection timeout"}
