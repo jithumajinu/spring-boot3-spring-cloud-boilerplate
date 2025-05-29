@@ -1,0 +1,29 @@
+digraph INFRA {
+  node [ color = "black", fillcolor = "#E6E6E6", height =1, style = "filled,bold,rounded", fontname = "Arial" ];
+  "prometheus" [ label = "prometheus
+(docker-compose::service)", shape =rectangle ];
+  "alertmanager" [ label = "alertmanager
+(docker-compose::service)", shape =rectangle ];
+  "grafana" [ label = "grafana
+(docker-compose::service)", shape =rectangle ];
+  "monitoring-network" [ label = "monitoring-network
+(docker-compose::network)", shape =rectangle ];
+  "grafana-storage" [ label = "grafana-storage
+(docker-compose::volume)", shape =cylinder, fillcolor = "#FFF5CD" ];
+  "auth-service" [ label = "auth-service
+(spring-boot::application)", shape =rectangle, fillcolor = "#B7E0FF" ];
+  "hazelcast-instance" [ label = "hazelcast-instance
+(hazelcast::config)", shape =cylinder, fillcolor = "#FFF5CD" ];
+  "productCache" [ label = "productCache
+(hazelcast::map-config)", shape =cylinder, fillcolor = "#FFF5CD" ];
+  "userCache" [ label = "userCache
+(hazelcast::map-config)", shape =cylinder, fillcolor = "#FFF5CD" ];
+  "userRolesCache" [ label = "userRolesCache
+(hazelcast::map-config)", shape =cylinder, fillcolor = "#FFF5CD" ];
+  "LogCleanupTask" [ label = "LogCleanupTask
+(spring::scheduled-task)", shape =rectangle ];
+  "grafana" -> "prometheus";
+  "productCache" -> "hazelcast-instance";
+  "userCache" -> "hazelcast-instance";
+  "userRolesCache" -> "hazelcast-instance";
+}

@@ -14,6 +14,31 @@
     ./gradlew clean build
    ```
 
+     Access application Actuator endpoints:
+   - http://localhost:1007/actuator
+   - http://localhost:1007/actuator/health
+   - http://localhost:1007/actuator/info
+   - http://localhost:1007/actuator/metrics
+   - http://localhost:1007/actuator/metrics/system.cpu.usage
+   - http://localhost:1007/actuator/prometheus
+
+   ```bash
+     # /actuator/health: Shows application health information
+     # /actuator/info: Displays application information
+     # /actuator/metrics: Shows metrics information
+     # /actuator/env: Exposes environment properties
+     # /actuator/loggers: Shows and modifies logger configurations
+     # /actuator/prometheus: Exposes metrics in Prometheus format     
+   ```
+
+   ```bash
+   # to stop
+      docker-compose -f docker-compose-monitoring.yml down
+   # Start Prometheus, Alertmanager, and Grafana:
+      docker-compose -f docker-compose-monitoring.yml up -d
+   ```
+   
+
 2. **Open API (Swagger UI)**
 Access application Actuator endpoints:
    - http://localhost:1007/swagger-ui/index.html
