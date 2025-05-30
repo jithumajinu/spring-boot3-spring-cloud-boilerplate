@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.2'
     id 'io.spring.dependency-management' version '1.1.7'
+    id 'jacoco'
     id "org.sonarqube" version "6.0.1.5171"
 }
 
@@ -13,6 +14,27 @@ java {
         languageVersion = JavaLanguageVersion.of(17)
     }
 }
+
+jacoco {
+    toolVersion = "0.8.10"
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = true
+        csv.required = false
+        html.required = true
+    }
+}
+
+sonarqube {
+    properties {
+        property "sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
+    }
+}
+
+
 
 //bootRun {
 //	environment SPRING_PROFILES_ACTIVE : environment.SPRING_PROFILES_ACTIVE ?: 'local'
@@ -68,20 +90,20 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
     implementation 'io.jsonwebtoken:jjwt-impl:0.11.2'
     implementation 'io.jsonwebtoken:jjwt-jackson:0.11.2'
-    
+
     // Cache dependencies
     implementation 'org.springframework.boot:spring-boot-starter-cache'
     implementation 'com.hazelcast:hazelcast:5.3.6'
     implementation 'com.hazelcast:hazelcast-spring:5.3.6'
-    
+
     // Monitoring dependencies
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'io.micrometer:micrometer-registry-prometheus'
-    
+
     // Logging dependencies for ELK
     implementation 'net.logstash.logback:logstash-logback-encoder:7.3'
     implementation 'org.springframework.boot:spring-boot-starter-aop'
-    
+
     runtimeOnly "mysql:mysql-connector-java:8.0.33"
 //	runtimeOnly "com.h2database:h2"
     compileOnly 'org.projectlombok:lombok'

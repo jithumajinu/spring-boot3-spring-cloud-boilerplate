@@ -118,6 +118,9 @@ public class SecurityConfig {
         http
                 .authenticationProvider(authenticationProvider())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                // CSRF protection is disabled because we're using stateless JWT authentication
+                // where tokens are sent in headers rather than cookies, making CSRF attacks not applicable
+                // NOSONAR: S4502 - Disabling CSRF is safe for stateless JWT authentication
                 .csrf(AbstractHttpConfigurer::disable)
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler)
                         .accessDeniedHandler(accessDeniedHandler))

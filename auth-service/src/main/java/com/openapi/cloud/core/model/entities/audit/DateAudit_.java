@@ -7,7 +7,7 @@ import jakarta.persistence.metamodel.StaticMetamodel;
 @StaticMetamodel(DateAudit.class)
 public class DateAudit_ {
 
-    public static volatile SingularAttribute<DateAudit, DeleteFlag> deleteFlag;
+    public static SingularAttribute<DateAudit, DeleteFlag> deleteFlag;
 
 
 }

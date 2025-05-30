@@ -6,7 +6,6 @@ import com.openapi.cloud.core.model.entities.Product;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
-
 import java.util.List;
 
 @Mapper
@@ -18,42 +17,26 @@ public interface ProductMapper {
 
     ProductDto toDto(ProductRequest productRequest);
 
+    @Mapping(target = "deleteFlag", ignore = true)
+    @Mapping(target = "deletedAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "createdBy", ignore = true)
+    @Mapping(target = "updatedBy", ignore = true)
+    @Mapping(target = "deletedBy", ignore = true)
     Product toEntity(ProductDto productDto);
 
+    @Mapping(target = "deleteFlag", ignore = true)
+    @Mapping(target = "deletedAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "createdBy", ignore = true)
+    @Mapping(target = "updatedBy", ignore = true)
+    @Mapping(target = "deletedBy", ignore = true)
     Product toEntity(ProductRequest productRequest);
 
     List<ProductDto> toDtoList(List<Product> products);
 
     List<Product> toEntityList(List<ProductDto> productDtos);
-
-
-//    If your field names don’t match or need transformation:
-//    @Mapping(source = "name", target = "productName")
-//    @Mapping(source = "price", target = "productPrice")
-//    ProductDto mapToProductDto(Product product);
-
-
-//    @Mapping(source = "productName", target = "name")
-//    @Mapping(source = "productPrice", target = "price")
-//    Product mapToProduct(ProductDto productDto);
-
-
-    // Add Custom Field Formatting (e.g., format price or date)
-
-//    @Mapping(target = "formattedPrice", expression = "java(formatPrice(product.getPrice()))")
-//    ProductDto mapToProductDto(Product product);
-//
-//    Product mapToProduct(ProductDto productDto);
-//
-//    default String formatPrice(BigDecimal price) {
-//        return "$" + price.setScale(2, RoundingMode.HALF_UP).toString();
-//    }
-
-
-//    @AfterMapping
-//    default void enrichProductDto(Product product, @MappingTarget ProductDto dto) {
-//        dto.setDisplayName(product.getName().toUpperCase() + " (ID: " + product.getId() + ")");
-//    }
-
 
 }

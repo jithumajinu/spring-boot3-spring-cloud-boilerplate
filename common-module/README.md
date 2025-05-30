@@ -128,3 +128,20 @@ Component Interactions:
 - Synchronous execution flow
 - Error handling is managed through Java exceptions
 - Thread-safe implementation for concurrent usage
+
+
+
+./gradlew clean test jacocoTestReport sonar \
+  -Dsonar.projectKey=auth-service \
+  -Dsonar.projectName='auth-service' \
+  -Dsonar.host.url=http://localhost:9000 \
+  -Dsonar.token=fe83680caf66f82235b83d71a53
+
+
+
+
+ ./gradlew sonar \
+  -Dsonar.projectKey=auth-service \
+  -Dsonar.projectName='auth-service' \
+  -Dsonar.host.url=http://localhost:9000 \
+  -Dsonar.token=sqp_4c58cab2cf8b7fe83680caf66f82235b83d71a53

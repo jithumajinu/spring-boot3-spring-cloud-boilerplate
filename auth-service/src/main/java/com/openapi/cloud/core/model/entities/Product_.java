@@ -7,8 +7,8 @@ import jakarta.persistence.metamodel.StaticMetamodel;
 @StaticMetamodel(Product.class)
 public class Product_ extends DateAudit_ {
 
-    public static volatile SingularAttribute<Product, Long> id;
+    public static SingularAttribute<Product, Long> id;
 
-    public static volatile SingularAttribute<Product, String> name;
+    public static SingularAttribute<Product, String> name;
 
 }

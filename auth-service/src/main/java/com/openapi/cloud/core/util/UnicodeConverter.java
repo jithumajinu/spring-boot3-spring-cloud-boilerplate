@@ -26,7 +26,7 @@ public class UnicodeConverter {
                 new FileOutputStream(fileName), "ISO-8859-1")) {
             props.store(writer, null);
         } catch (IOException e) {
-            e.printStackTrace();
+           throw  new RuntimeException("Error saving properties file", e);
         }
     }
 
@@ -41,7 +41,7 @@ public class UnicodeConverter {
             props.load(reader);
             System.out.println("Stored value: " + props.getProperty("error"));
         } catch (IOException e) {
-            e.printStackTrace();
+           throw new RuntimeException("Error reading properties file", e);
         }
     }
 }

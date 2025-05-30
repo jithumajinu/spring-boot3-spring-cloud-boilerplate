@@ -3,8 +3,6 @@ package com.openapi.cloud.core.annotations;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
-// import io.swagger.v3.oas.annotations.media.ExampleObject;
-//import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
@@ -13,7 +11,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-//@Tag(name = "OpenApi")
 public interface OpenApiOperations {
 
     @Target(ElementType.METHOD)
