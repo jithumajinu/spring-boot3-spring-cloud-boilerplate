@@ -13,115 +13,77 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
-
-import java.io.IOException;
 import java.util.List;
 
 @OpenAPIDefinition
 @Configuration
 public class OpenApiConfig {
 
-    @Value("${openapi.url}")
-    private String openAPIUrl;
+        @Value("${openapi.url}")
+        private String openAPIUrl;
 
-    @Value("${openapi.env}")
-    private String openAPIEnv;
+        @Value("${openapi.env}")
+        private String openAPIEnv;
 
-    @Bean
-    public OpenAPI baseOpenAPI() throws IOException {
+        @Bean
+        public OpenAPI baseOpenAPI() {
 
-        // JsonToObject readJsonFileToJsonObject = new JsonToObject();
+                Server openApiServer = new Server();
+                openApiServer.setUrl(openAPIUrl);
+                openApiServer.setDescription(openAPIEnv);
 
-        Server openApiServer = new Server();
-        openApiServer.setUrl(openAPIUrl);
-        openApiServer.setDescription(openAPIEnv);
+                Info info = new Info().title("Spring Doc").version("1.0.0");
 
-        Info info = new Info().title("Spring Doc").version("1.0.0");
+                /*
+                 * Client error
+                 * status code 400 | Bad Request
+                 */
+                ApiResponse badRequestStatus = new ApiResponse().content(
+                                new Content().addMediaType(MediaType.APPLICATION_JSON_VALUE,
+                                                new io.swagger.v3.oas.models.media.MediaType().addExamples("badRequest",
+                                                                new Example().value("400"))))
+                                .description("Bad Request!");
 
-        /*
-         * Client error
-         * status code 400 | Bad Request
-         */
-        ApiResponse badRequestStatus = new ApiResponse().content(
-                new Content().addMediaType(MediaType.APPLICATION_JSON_VALUE,
-                        new io.swagger.v3.oas.models.media.MediaType().addExamples("default",
-                                new Example().value("400")
-                        )
-                )
-        ).description("Bad Request!");
+                /*
+                 * Client error
+                 * status code 401 | Unauthorized
+                 */
+                ApiResponse unauthorizedStatus = new ApiResponse().content(
+                                new Content().addMediaType(MediaType.APPLICATION_JSON_VALUE,
+                                                new io.swagger.v3.oas.models.media.MediaType().addExamples("Unauthorized",
+                                                                new Example().value("401"))))
+                                .description("Unauthorized!");
 
-        /*
-         * Client error
-         * status code 401 | Unauthorized
-         */
-        ApiResponse unauthorizedStatus = new ApiResponse().content(
-                new Content().addMediaType(MediaType.APPLICATION_JSON_VALUE,
-                        new io.swagger.v3.oas.models.media.MediaType().addExamples("default",
-                                new Example().value("401")
-                        )
-                )
-        ).description("Unauthorized!");
+                /*
+                 * Server error
+                 * status code 500 | Internal Server Error
+                 */
+                ApiResponse internalServerErrorStatus = new ApiResponse().content(
+                                new Content().addMediaType(MediaType.APPLICATION_JSON_VALUE,
+                                                new io.swagger.v3.oas.models.media.MediaType().addExamples("Internal Server Error",
+                                                                new Example().value("500"))))
+                                .description("Internal Server Error!");
 
-        /*
-         * Client error
-         * status code 403 | Forbidden
-         */
-        ApiResponse forbiddenStatus = new ApiResponse().content(
-                new Content().addMediaType(MediaType.APPLICATION_JSON_VALUE,
-                        new io.swagger.v3.oas.models.media.MediaType().addExamples("default",
-                                new Example().value("403")
-                        )
-                )
-        ).description("Forbidden!");
+                /*
+                 * Define Security Scheme
+                 * This is used to secure the API with JWT Bearer token
+                 */
+                Components components = new Components()
+                                .addSecuritySchemes("Bearer Authentication",
+                                                new SecurityScheme()
+                                                                .type(SecurityScheme.Type.HTTP)
+                                                                .scheme("bearer")
+                                                                .bearerFormat("JWT")
+                                                                .description("Enter JWT token"));
 
-        /*
-         * Client error
-         * status code 404 | Not Found
-         */
-        ApiResponse notFoundStatus = new ApiResponse().content(
-                new Content().addMediaType(MediaType.APPLICATION_JSON_VALUE,
-                        new io.swagger.v3.oas.models.media.MediaType().addExamples("default",
-                                new Example().value("404")
-                        )
-                )
-        ).description("Not Found!");
+                // Add responses to components
+                components.addResponses("badRequestStatus", badRequestStatus);
+                components.addResponses("unauthorizedStatus", unauthorizedStatus);
+                components.addResponses("internalServerErrorStatus", internalServerErrorStatus); // Server error
 
-
-        /*
-         * Server error
-         * status code 500 | Internal Server Error
-         */
-        ApiResponse internalServerErrorStatus = new ApiResponse().content(
-                new Content().addMediaType(MediaType.APPLICATION_JSON_VALUE,
-                        new io.swagger.v3.oas.models.media.MediaType().addExamples("default",
-                                new Example().value("500")
-                        )
-                )
-        ).description("Internal Server Error!");
-
-
-        //Components components = new Components();
-
-        // Define Security Scheme
-        Components components = new Components()
-                .addSecuritySchemes("Bearer Authentication",
-                        new SecurityScheme()
-                                .type(SecurityScheme.Type.HTTP)
-                                .scheme("bearer")
-                                .bearerFormat("JWT")
-                                .description("Enter JWT token")
-                );
-
-        /* Client error */
-        components.addResponses("badRequestStatus", badRequestStatus);
-        components.addResponses("unauthorizedStatus", unauthorizedStatus);
-        components.addResponses("forbiddenStatus", forbiddenStatus);
-        components.addResponses("notFoundStatus", notFoundStatus);
-        components.addResponses("internalServerErrorStatus", internalServerErrorStatus); // Server error
-
-        return new OpenAPI()
-                .components(components)
-                .info(info)
-                .servers(List.of(openApiServer));
-    }
+                return new OpenAPI()
+                                .components(components)
+                                .info(info)
+                                .servers(List.of(openApiServer));
+        }
 }

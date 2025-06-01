@@ -8,16 +8,11 @@ import org.springframework.stereotype.Component;
 @Component
 @Qualifier("emailNotification")
 public class EmailServiceImpl implements NotificationService {
-    
+
     @Override
     public void sendNotification(String to, String subject, String message) {
-        try {
 
-            System.out.println("Send Email");
-
-        } catch (Exception e) {
-
-        }
+        System.out.println("Send Email");
     }
 
     @Override

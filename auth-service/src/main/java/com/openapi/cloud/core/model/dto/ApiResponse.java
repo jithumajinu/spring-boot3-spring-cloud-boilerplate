@@ -1,11 +1,10 @@
 package com.openapi.cloud.core.model.dto;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.*;
-
 import com.google.common.collect.Maps;
 import com.openapi.cloud.core.service.MessageResourceHolder;
-import com.openapi.cloud.core.service.MessageResourceService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import com.openapi.cloud.core.constants.ApiErrorCode;
@@ -17,7 +16,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @AllArgsConstructor
 @Getter
@@ -26,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @ToString
 public class ApiResponse<T> implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = -1674709247477918772L;
 
     private boolean flag;
@@ -41,9 +40,9 @@ public class ApiResponse<T> implements Serializable {
     @JsonProperty("hasData")
     public boolean hasData() {
         if (data instanceof Collection<?>) {
-            return CollectionUtils.isNotEmpty((Collection<?>) data); //return !((Collection<?>) data).isEmpty();
+            return CollectionUtils.isNotEmpty((Collection<?>) data);
         } else if (data instanceof Map<?, ?>) {
-            return MapUtils.isNotEmpty((Map<?, ?>) data);  //return !((Map<?, ?>) data).isEmpty();
+            return MapUtils.isNotEmpty((Map<?, ?>) data);
         } else {
             return data != null;
         }
@@ -70,6 +69,7 @@ public class ApiResponse<T> implements Serializable {
     @ToString
     public static final class ApiError implements Serializable {
 
+        @Serial
         private static final long serialVersionUID = 3687524794654930688L;
 
         private ApiErrorCode errorCode;
@@ -104,6 +104,7 @@ public class ApiResponse<T> implements Serializable {
         @ToString
         public static final class ErrorDetail implements Serializable {
 
+            @Serial
             private static final long serialVersionUID = 5278702444419535244L;
             private String code;
             private String message;

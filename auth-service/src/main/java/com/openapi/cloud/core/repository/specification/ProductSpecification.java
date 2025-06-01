@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 
 import jakarta.persistence.criteria.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -46,7 +47,7 @@ public class ProductSpecification extends AbstractSpecifications {
     private static void addDeleteFlagPredicate(Root<Product> root,
                                                CriteriaBuilder cb,
                                                List<Predicate> predicates) {
-        predicates.add(cb.equal(root.get(Product_.deleteFlag), deleteFlag));
+        predicates.add(cb.equal(root.get(Product_.deleteFlag), DELETE_FLAG));
     }
 
     private static void addSortCriteria(Root<Product> root,

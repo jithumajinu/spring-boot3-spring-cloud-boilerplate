@@ -1,10 +1,9 @@
 package com.openapi.cloud.core.model.dto;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -22,6 +21,7 @@ import lombok.ToString;
 @Builder
 public class ModelPage<T> implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = -2472318353071001944L;
 
     private Integer pageSize;
@@ -55,9 +55,7 @@ public class ModelPage<T> implements Serializable {
             return 0L;
         }
 
-        long countFrom = (pageNumber - 1L) * pageSize + 1L;
-
-        return countFrom;
+        return (pageNumber - 1L) * pageSize + 1L;
     }
 
     @JsonIgnore

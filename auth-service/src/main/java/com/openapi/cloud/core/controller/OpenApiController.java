@@ -14,11 +14,8 @@ import com.openapi.cloud.core.model.dto.request.GetAllProductRequest;
 import com.openapi.cloud.core.model.dto.request.ProductRequest;
 import com.openapi.cloud.core.service.ProductService;
 import com.openapi.cloud.core.service.UserNotificationService;
-
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -28,21 +25,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Slf4j
-// @RefreshScope
 @RestController
 @RequestMapping("/openApis")
 public class OpenApiController extends AbstractCoreUtilController {
 
-    @Autowired
-    private ProductService productService;
-
+    private final ProductService productService;
     private final UserNotificationService notificationService;
 
-    @Autowired
-    public OpenApiController(UserNotificationService notificationService) {
+    public OpenApiController(ProductService productService, UserNotificationService notificationService) {
+        this.productService = productService;
         this.notificationService = notificationService;
     }
-
 
     /**
      * GET
@@ -60,12 +53,11 @@ public class OpenApiController extends AbstractCoreUtilController {
     public ApiResponse<List<ProductDto>> productList() {
         log.info("API:/product get all products ::start");
         var responseBuilder = ApiResponse.<List<ProductDto>>builder().flag(true);
-        List<ProductDto> ProductList = productService.getProductList();
-        responseBuilder.data(ProductList);
+        List<ProductDto> productList = productService.getProductList();
+        responseBuilder.data(productList);
         log.info("API:/product get all products ::end");
         return responseBuilder.build();
     }
-
 
     /**
      * GET
@@ -79,20 +71,12 @@ public class OpenApiController extends AbstractCoreUtilController {
     ) {
         log.info("API:/product-page ::start");
 
-        System.out.println("FindCustomerPageRequest: keyword : " + request.getKeyword());
-        System.out.println("FindCustomerPageRequest: page: " + request.getPage());
-        System.out.println("FindCustomerPageRequest: pagingSize: " + request.getPagingSize());
-        System.out.println("FindCustomerPageRequest: sortBy: " + request.getSortBy());
-
         var responseBuilder = ApiResponse.<ModelPage<ProductDto>>builder().flag(true);
         var productList = productService.getProductPage(request);
-
-        System.out.println("Msg: beforBind-productList" + productList);
         responseBuilder.data(productList);
         log.info("API:product-page ::end");
         return responseBuilder.build();
     }
-
 
     /**
      * POST /product
@@ -102,8 +86,9 @@ public class OpenApiController extends AbstractCoreUtilController {
      */
     @OpenApiOperations.OpenApiObjectOperation(tags = "Product", summary = "createProduct", description = "createProduct", operationId = "createProduct")
     @PostMapping("/product")
-    public ApiResponse<ProductDto> createProduct(@Validated(ValidationGroups.Create.class) @RequestBody(required = true) ProductRequest productRequest,
-                                                 BindingResult bindingResult, HttpServletResponse httpServletResponse) {
+    public ApiResponse<ProductDto> createProduct(
+            @Validated(ValidationGroups.Create.class) @RequestBody(required = true) ProductRequest productRequest,
+            BindingResult bindingResult, HttpServletResponse httpServletResponse) {
 
         var responseBuilder = ApiResponse.<ProductDto>builder().flag(true);
         if (bindingResult.hasErrors()) {
@@ -151,7 +136,6 @@ public class OpenApiController extends AbstractCoreUtilController {
         return new ResponseEntity<>(productDto, HttpStatus.OK);
     }
 
-
     /**
      * DELETE /{productId}
      *
@@ -163,7 +147,6 @@ public class OpenApiController extends AbstractCoreUtilController {
     public ResponseEntity<String> deleteProductId(@PathVariable("productId") Long productId) {
         return ResponseEntity.ok("Resource deleted successfully");
     }
-
 
     /**
      * POST sendNotification

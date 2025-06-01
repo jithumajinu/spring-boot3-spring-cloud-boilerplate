@@ -26,13 +26,14 @@ public class PageUtil {
         return toPageable(number, size, orders);
     }
 
-    public static Map<String, String> getSortFields(List<String> sortKey, List<String> sortOrder, String defaultSortKey, String defaultSortValue) {
+    public static Map<String, String> getSortFields(List<String> sortKey, List<String> sortOrder, String defaultSortKey,
+                                                    String defaultSortValue) {
         Map<String, String> sorts = Maps.newLinkedHashMap();
 
-        IntStream.range(0, sortKey != null ? sortKey.size() : 0)
-                .forEach(i -> {
-                    sorts.put(sortKey.get(i), sortOrder.size() > i ? sortOrder.get(i) : "ASC");
-                });
+        if (sortKey != null && sortOrder != null) {
+            IntStream.range(0, sortKey.size())
+                    .forEach(i -> sorts.put(sortKey.get(i), sortOrder.size() > i ? sortOrder.get(i) : "ASC"));
+        }
 
         if (sorts.isEmpty()) {
             sorts.put(defaultSortKey, defaultSortValue);
@@ -45,13 +46,15 @@ public class PageUtil {
         return PageUtil.toPageable(page, size, Collections.emptyMap());
     }
 
-    public static Pageable toPageable(Integer page, Integer size, List<String> sortKey, List<String> sortOrder, String defaultSortKey, String defaultSortValue) {
-        return PageUtil.toPageable(page, size, PageUtil.getSortFields(sortKey, sortOrder, defaultSortKey, defaultSortValue));
+    public static Pageable toPageable(Integer page, Integer size, List<String> sortKey, List<String> sortOrder,
+                                      String defaultSortKey, String defaultSortValue) {
+        return PageUtil.toPageable(page, size,
+                PageUtil.getSortFields(sortKey, sortOrder, defaultSortKey, defaultSortValue));
     }
 
     public static Pageable toPageable(Integer number, Integer size, Map<String, String> orders) {
 
-        Integer pageIndex = number == null || number < 1 ? DEFAULT_NUMBER : (number - 1);
+        int pageIndex = number == null || number < 1 ? DEFAULT_NUMBER : (number - 1);
         Integer pageSize = size == null || size < 1 ? DEFAULT_SIZE : size;
         Sort sort = MapUtils.isEmpty(orders) ? Sort.unsorted() : Sort.by(orders.entrySet().stream().map(e -> {
 

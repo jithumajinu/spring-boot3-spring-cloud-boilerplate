@@ -1,12 +1,7 @@
 package com.openapi.cloud.core.model.dto.request;
 
-
-//import io.crm.app.core.constant.PagingSize;
-//import io.crm.app.model.customer.CustomerSortItem;
-
 import com.openapi.cloud.core.constants.PagingSize;
 import lombok.*;
-
 import java.io.Serializable;
 
 

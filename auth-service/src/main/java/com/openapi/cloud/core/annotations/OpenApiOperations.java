@@ -22,19 +22,17 @@ public interface OpenApiOperations {
                                     schema = @Schema(implementation = com.openapi.cloud.core.model.dto.ApiResponse.class)))
                     }),
                     @ApiResponse(responseCode = "401", ref = "unauthorizedStatus"),
-                    @ApiResponse(responseCode = "403", ref = "forbiddenStatus"),
-                    @ApiResponse(responseCode = "404", ref = "notFoundStatus"),
                     @ApiResponse(responseCode = "500", ref = "internalServerErrorStatus"),
             }
     )
     public @interface OpenApiListOperation {
-        String tags() default "xxxxx";
+        String tags() default "openapi";
 
-        String summary() default "xxxxx";
+        String summary() default "summary";
 
-        String description() default "xxxxx";
+        String description() default "description";
 
-        String operationId() default "xxxxx";
+        String operationId() default "operationId";
 
         boolean isPaginated() default false;
 
@@ -53,19 +51,17 @@ public interface OpenApiOperations {
                                     schema = @Schema(implementation = com.openapi.cloud.core.model.dto.ApiResponse.class))
                     }),
                     @ApiResponse(responseCode = "401", ref = "unauthorizedStatus"),
-                    @ApiResponse(responseCode = "403", ref = "forbiddenStatus"),
-                    @ApiResponse(responseCode = "404", ref = "notFoundStatus"),
                     @ApiResponse(responseCode = "500", ref = "internalServerErrorStatus"),
             }
     )
     public @interface OpenApiObjectOperation {
-        String tags() default "xxxxx";
+        String tags() default "openapi";
 
-        String summary() default "xxxxx";
+        String summary() default "summary";
 
-        String description() default "xxxxx";
+        String description() default "description";
 
-        String operationId() default "xxxxx";
+        String operationId() default "operationId";
 
         boolean isPaginated() default false;
 
@@ -73,50 +69,5 @@ public interface OpenApiOperations {
 
         String[] additionalTags() default {};
     }
-
-
-//    @Operation(operationId = "customerById", tags = {"Customer"}, summary = "Finds customer by id",
-//            responses = {
-//                    @ApiResponse(responseCode = "200", content = {@Content(mediaType = "application/json",
-//                            schema = @Schema(implementation = OpenApiResponse.class))
-//                    }),
-//                    @ApiResponse(responseCode = "400", ref = "badRequestStatus"),
-//                    @ApiResponse(responseCode = "401", ref = "unauthorizedStatus"),
-//                    @ApiResponse(responseCode = "403", ref = "forbiddenStatus"),
-//                    @ApiResponse(responseCode = "404", ref = "notFoundStatus"),
-//                    @ApiResponse(responseCode = "500", ref = "internalServerErrorStatus"),
-//            }
-//    )
-//    @GetMapping("/{customerId}")
-//    public ResponseEntity<OpenApiResponse> customerById(@PathVariable("customerId") String customerId) {
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
-//
-
-
-    // @Operation(operationId = "customerList", tags = {"Customer"}, summary = "Find all customers",
-//            description = "Get Customer List",
-//            responses = {
-//                    @ApiResponse(responseCode = "200", content = {
-//                            @Content(mediaType = "application/json", array = @ArraySchema(
-//                                    schema = @Schema(implementation = OpenApiResponse.class)))
-//                    }),
-//                    @ApiResponse(responseCode = "401", ref = "unauthorizedStatus"),
-//                    @ApiResponse(responseCode = "403", ref = "forbiddenStatus"),
-//                    @ApiResponse(responseCode = "404", ref = "notFoundStatus"),
-//                    @ApiResponse(responseCode = "500", ref = "internalServerErrorStatus"),
-//            }
-//    )
-
-//    @Operation(operationId = "updateCustomerById", tags = {"Customer"}, summary = "Update an existing customer",
-//            responses = {
-//                    @ApiResponse(responseCode = "200", description = "Resource updated successfully",
-//                            content = @Content(mediaType = "application/json", examples = {@ExampleObject(value = "{\"message\" : \"Resource updated successfully\" }")})),
-//                    @ApiResponse(responseCode = "400", ref = "badRequestStatus"),
-//                    @ApiResponse(responseCode = "401", ref = "unauthorizedStatus"),
-//                    @ApiResponse(responseCode = "403", ref = "forbiddenStatus"),
-//                    @ApiResponse(responseCode = "500", ref = "internalServerErrorStatus"),
-//            }
-//    )
 
 }

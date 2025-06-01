@@ -11,8 +11,4 @@ public enum  OpenApiStatusEnum {
     PREMIUM("PREMIUM"),
     NORMAL("NORMAL");
     private final String value;
-
-//    OpenApiStatusEnum(String value) {
-//        this.value = value;
-//    }
 }

@@ -1,6 +1,5 @@
 package com.openapi.cloud.core.model.entities.audit;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.MappedSuperclass;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

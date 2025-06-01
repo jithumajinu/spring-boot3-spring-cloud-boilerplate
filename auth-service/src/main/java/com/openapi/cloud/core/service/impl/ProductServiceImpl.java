@@ -53,25 +53,15 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDto> getProductList() {
-        // List<Product> productList = productRepository.findAllProduct();
         List<Product> productList = productRepository.findAllByDeleteFlag(DeleteFlag.ACTIVE);
-        productList.forEach(System.out::println);
         return ProductMapper.MAPPER.toDtoList(productList);
     }
 
-
     @Override
     public ModelPage<ProductDto> getProductPage(GetAllProductRequest request) {
-        // Build search conditions
         ProductPageCondition condition = buildSearchCondition(request);
-
-        // Create pageable object
         Pageable pageable = createPageable(request);
-
-        // Fetch and transform data
         Page<Product> productPage = productRepository.findPageByCondition(condition, pageable);
-
-        // Map to DTOs and build response
         return createModelPage(productPage);
     }
 
@@ -86,8 +76,7 @@ public class ProductServiceImpl implements ProductService {
         return PageUtil.toPageable(
                 request.getPage(),
                 request.getPagingSize().getCode(),
-                Collections.emptyMap()
-        );
+                Collections.emptyMap());
     }
 
     private ModelPage<ProductDto> createModelPage(Page<Product> page) {
@@ -105,35 +94,5 @@ public class ProductServiceImpl implements ProductService {
                 .totalPages(page.getTotalPages())
                 .build();
     }
-
-//    @Override
-//    public ModelPage<ProductDto> getProductPage(GetAllProductRequest request) {
-//
-//        var conditionBuilder = ProductPageCondition.builder()
-//                .keyword(request.getKeyword())
-//                .sortItem(request.getSortBy()).build();
-//
-//        Pageable pageable = PageUtil.toPageable(request.getPage(), request.getPagingSize().getCode(),
-//                Maps.newHashMap());
-//
-//        Page<Product> page = productRepository.findPageByCondition(conditionBuilder, pageable);
-//
-//        List<ProductDto> productList = new ArrayList<>(); // Lists.newArrayList();
-//
-//        if (page.hasContent()) {
-//            productList = ProductMapper.MAPPER.toDtoList(page.getContent());
-//        }
-//
-//        return ModelPage.<ProductDto>builder()
-//                .content(productList) // responseList
-//                .next(page.hasNext())
-//                .previous(page.hasPrevious())
-//                .pageNumber(page.getNumber() + 1)
-//                .pageSize(page.getSize())
-//                .totalCount(page.getTotalElements())
-//                .totalPages(page.getTotalPages())
-//                .build();
-//    }
-
 
 }

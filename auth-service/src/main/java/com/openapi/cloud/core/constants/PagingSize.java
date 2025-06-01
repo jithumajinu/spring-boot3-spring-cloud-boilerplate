@@ -1,10 +1,5 @@
 package com.openapi.cloud.core.constants;
 
-//import io.crm.app.core.annotation.LocalizedLabel;
-//import io.crm.app.core.service.EnumResourceService;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

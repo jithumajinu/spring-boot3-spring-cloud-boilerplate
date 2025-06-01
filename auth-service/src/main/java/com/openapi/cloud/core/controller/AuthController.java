@@ -16,12 +16,13 @@ import com.openapi.cloud.core.security.UserPrincipal;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
@@ -36,89 +37,77 @@ import java.util.List;
 @RequestMapping("/api/auth")
 public class AuthController extends AbstractCoreUtilController {
 
-    @Autowired
-    AuthenticationManager authenticationManager;
+        @Autowired
+        AuthenticationManager authenticationManager;
 
-    @Autowired
-    UserRepository userRepository;
+        UserRepository userRepository;
 
-    @Autowired
-    RoleRepository roleRepository;
+        @Autowired
+        RoleRepository roleRepository;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
+        @Autowired
+        PasswordEncoder passwordEncoder;
 
-    @Autowired
-    JwtTokenProvider tokenProvider;
+        @Autowired
+        JwtTokenProvider tokenProvider;
 
+        @PostMapping("/signup")
+        public String registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
 
-    @PostMapping("/signup")
-    public String registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
+                User user = new User(signUpRequest.getName(), signUpRequest.getUsername(),
+                                signUpRequest.getEmail(), signUpRequest.getPassword());
+                user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        log.info("API: /signup");
-        // Creating user's account
-        User user = new User(signUpRequest.getName(), signUpRequest.getUsername(),
-                signUpRequest.getEmail(), signUpRequest.getPassword());
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
-                .orElseThrow(() -> new AppException("User Role not set."));
-        user.setRoles(Collections.singleton(userRole));
-        User result = userRepository.save(user);
-        return "success";
-    }
-
-    @PostMapping("/login")
-    public ApiResponse<JwtAuthenticationResponse> loginUser(
-            @Validated @RequestBody LoginRequest loginRequest,
-            BindingResult bindingResult,
-            HttpServletResponse httpServletResponse) {
-
-        log.info("API: /login");
-        System.out.println("login-----");
-
-        var responseBuilder = ApiResponse.<JwtAuthenticationResponse>builder()
-                .flag(true);
-
-        if (bindingResult.hasErrors()) {
-            httpServletResponse.setStatus(HttpStatus.BAD_REQUEST.value());
-            return responseBuilder
-                    .error(ApiResponse.ApiError.builder()
-                            .errorCode(ApiErrorCode.INPUT_ERROR)
-                            .errors(formatInputErrors(bindingResult))
-                            .build())
-                    .build();
+                Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
+                                .orElseThrow(() -> new AppException("User Role not set."));
+                user.setRoles(Collections.singleton(userRole));
+                return "success";
         }
 
+        @PostMapping("/login")
+        public ApiResponse<JwtAuthenticationResponse> loginUser(
+                        @Validated @RequestBody LoginRequest loginRequest,
+                        BindingResult bindingResult,
+                        HttpServletResponse httpServletResponse) {
 
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginRequest.getUsernameOrEmail(),
-                        loginRequest.getPassword()
-                )
-        );
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        UserPrincipal currentUser = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String jwt = tokenProvider.generateToken(authentication);
-        
-        // Extract role names from authorities and remove ROLE_ prefix
-        List<String> roleNames = currentUser.getAuthorities().stream()
-                .map(authority -> authority.getAuthority().replace("ROLE_", ""))
-                .collect(java.util.stream.Collectors.toList());
-                
-        responseBuilder.data(
-                JwtAuthenticationResponse.builder()
-                        .accessToken(jwt)
-                        .tokenType("Bearer")
-                        .name(currentUser.getName())
-                        .email(currentUser.getEmail())
-                        .claims(roleNames)
-                        .build()
-        );
+                log.info("API: /login");
+                log.info("Request: {}", loginRequest);
+                var responseBuilder = ApiResponse.<JwtAuthenticationResponse>builder()
+                                .flag(true);
 
+                if (bindingResult.hasErrors()) {
+                        httpServletResponse.setStatus(HttpStatus.BAD_REQUEST.value());
+                        return responseBuilder
+                                        .error(ApiResponse.ApiError.builder()
+                                                        .errorCode(ApiErrorCode.INPUT_ERROR)
+                                                        .errors(formatInputErrors(bindingResult))
+                                                        .build())
+                                        .build();
+                }
 
-        return responseBuilder.build();
-    }
+                Authentication authentication = authenticationManager.authenticate(
+                                new UsernamePasswordAuthenticationToken(
+                                                loginRequest.getUsernameOrEmail(),
+                                                loginRequest.getPassword()));
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+                UserPrincipal currentUser = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication()
+                                .getPrincipal();
+                String jwt = tokenProvider.generateToken(authentication);
 
+                List<String> roleNames = currentUser.getAuthorities().stream()
+                                .map(authority -> authority.getAuthority().replace("ROLE_", ""))
+                                .toList();
+
+                responseBuilder.data(
+                                JwtAuthenticationResponse.builder()
+                                                .accessToken(jwt)
+                                                .tokenType("Bearer")
+                                                .name(currentUser.getName())
+                                                .email(currentUser.getEmail())
+                                                .claims(roleNames)
+                                                .build());
+
+                return responseBuilder.build();
+        }
 
 }

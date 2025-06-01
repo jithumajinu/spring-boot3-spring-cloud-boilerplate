@@ -28,12 +28,4 @@ public class ApiErrorResponse {
                 .path(path)
                 .build();
     }
-
-//    public ApiErrorResponse(int status, String error, String message, String path) {
-//        this.timestamp = LocalDateTime.now();
-//        this.status = status;
-//        this.error = error;
-//        this.message = message;
-//        this.path = path;
-//    }
 }

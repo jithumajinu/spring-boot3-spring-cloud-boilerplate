@@ -9,5 +9,4 @@ public class DateAudit_ {
 
     public static SingularAttribute<DateAudit, DeleteFlag> deleteFlag;
 
-
 }

@@ -1,7 +1,5 @@
 package com.openapi.cloud.core.model.entities;
 
-import org.checkerframework.checker.units.qual.C;
-
 import com.openapi.cloud.core.model.entities.audit.UserDateAudit;
 import jakarta.persistence.*;
 import lombok.*;
@@ -30,5 +28,4 @@ public class Product extends UserDateAudit {
 
     @Column(name = "model")
     private String model;
-
 }
