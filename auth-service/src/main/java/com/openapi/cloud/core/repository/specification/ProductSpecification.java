@@ -4,6 +4,7 @@ import com.openapi.cloud.core.model.dto.request.ProductPageCondition;
 import com.openapi.cloud.core.model.dto.request.ProductSortBy;
 import com.openapi.cloud.core.model.entities.Product;
 import com.openapi.cloud.core.model.entities.Product_;
+import com.openapi.cloud.core.model.entities.audit.DateAudit_;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -47,7 +48,7 @@ public class ProductSpecification extends AbstractSpecifications {
     private static void addDeleteFlagPredicate(Root<Product> root,
                                                CriteriaBuilder cb,
                                                List<Predicate> predicates) {
-        predicates.add(cb.equal(root.get(Product_.deleteFlag), DELETE_FLAG));
+        predicates.add(cb.equal(root.get(DateAudit_.deleteFlag), DELETE_FLAG));
     }
 
     private static void addSortCriteria(Root<Product> root,
