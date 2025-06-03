@@ -1,6 +1,5 @@
 package com.openapi.cloud.core.service.impl;
 
-import com.google.common.collect.Maps;
 import com.openapi.cloud.core.constants.DeleteFlag;
 import com.openapi.cloud.core.exception.ResourceNotFoundException;
 import com.openapi.cloud.core.mapper.ProductMapper;
@@ -22,8 +21,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Objects;
 
 @Service
 @AllArgsConstructor

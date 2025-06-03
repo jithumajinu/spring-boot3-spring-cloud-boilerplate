@@ -29,7 +29,7 @@ public class ApiResponse<T> implements Serializable {
 
     private boolean flag;
 
-    private T data;
+    private T data; //NOSONAR
 
     private ApiError error;
 

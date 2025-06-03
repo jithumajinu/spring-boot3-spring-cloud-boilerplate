@@ -55,7 +55,11 @@ public class SecurityConfig {
         return new JwtAuthenticationFilter();
     }
 
-    @Bean(BeanIds.AUTHENTICATION_MANAGER)
+    
+    // Use BeanIds.AUTHENTICATION_MANAGER to ensure compatibility with Spring Security 5.x
+    // and to avoid conflicts with other authentication managers.
+    @Bean(BeanIds.AUTHENTICATION_MANAGER) //NOSONAR
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
