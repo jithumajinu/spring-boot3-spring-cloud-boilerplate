@@ -32,6 +32,7 @@ public class SecurityAuthorizationConfig {
                 
                 // Auth endpoints
                 .requestMatchers("/api/auth/**").permitAll()
+
                 .requestMatchers("/api/user/checkUsernameAvailability", "/api/user/checkEmailAvailability").permitAll()
                 
                 // OpenAPI endpoints

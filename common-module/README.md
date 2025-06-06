@@ -57,6 +57,8 @@ cd common-module
 ```bash
 cd ../consumer-app
 ./gradlew bootRun
+
+./gradlew publishMavenJavaPublicationToLocalNexusRepository
 ```
 
 ### Quick Start

@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import com.example.common.GreetingService;
 
 @SecurityRequirement(name = "Bearer Authentication")
 @Slf4j
@@ -11,8 +12,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/customer")
 public class CustomerController extends AbstractCoreUtilController {
 
+    GreetingService gr = new GreetingService();
     @GetMapping("/edit")
     public String edit() {
+
+        System.out.println(gr.greet("Hi dad how are you"));
 
         return "customer - edit !";
     }

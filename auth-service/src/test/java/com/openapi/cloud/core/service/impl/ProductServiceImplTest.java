@@ -6,7 +6,6 @@ import com.openapi.cloud.core.exception.ResourceNotFoundException;
 import com.openapi.cloud.core.model.dto.ModelPage;
 import com.openapi.cloud.core.model.dto.ProductDto;
 import com.openapi.cloud.core.model.dto.request.GetAllProductRequest;
-import com.openapi.cloud.core.model.dto.request.ProductPageCondition;
 import com.openapi.cloud.core.model.dto.request.ProductSortBy;
 import com.openapi.cloud.core.model.entities.Product;
 import com.openapi.cloud.core.repository.ProductRepository;
@@ -17,7 +16,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
 import java.util.List;

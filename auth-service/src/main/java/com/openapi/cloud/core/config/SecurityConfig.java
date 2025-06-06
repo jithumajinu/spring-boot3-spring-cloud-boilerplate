@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -55,7 +56,7 @@ public class SecurityConfig {
         return new JwtAuthenticationFilter();
     }
 
-    
+
     // Use BeanIds.AUTHENTICATION_MANAGER to ensure compatibility with Spring Security 5.x
     // and to avoid conflicts with other authentication managers.
     @Bean(BeanIds.AUTHENTICATION_MANAGER) //NOSONAR
@@ -108,15 +109,22 @@ public class SecurityConfig {
         return source;
     }
 
+    @Autowired
+    private SecurityAuthorizationConfig securityAuthorizationConfig;
+
+    @Autowired
+    private CustomAccessDeniedHandler accessDeniedHandler;
+
+    @Autowired
+    private JwtAuthenticationEntryPoint unauthorizedHandler;
+
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http,
-                                                   SecurityAuthorizationConfig securityAuthorizationConfig,
-                                                   CustomAccessDeniedHandler accessDeniedHandler,
-                                                   JwtAuthenticationEntryPoint unauthorizedHandler)
+    public SecurityFilterChain securityFilterChain(HttpSecurity http)
             throws Exception {
         http
                 .authenticationProvider(authenticationProvider())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .csrf(AbstractHttpConfigurer::disable)
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler)
                         .accessDeniedHandler(accessDeniedHandler))
                 // Each request is authenticated independently (typically via tokens like JWT) ,

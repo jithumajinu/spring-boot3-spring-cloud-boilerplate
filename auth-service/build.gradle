@@ -52,6 +52,16 @@ sonarqube {
 
 repositories {
     mavenCentral()
+    
+    // Add local Nexus repository
+    maven {
+        url "http://localhost:8081/repository/maven-releases/"
+        allowInsecureProtocol = true
+        credentials {
+            username = "admin"
+            password = ""
+        }
+    }
 }
 
 ext {
@@ -90,6 +100,9 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
     implementation 'io.jsonwebtoken:jjwt-impl:0.11.2'
     implementation 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+    
+    // Add common-module dependency
+    implementation 'com.github.jithumajinu:common-module:1.0.0'
 
     // Cache dependencies
     implementation 'org.springframework.boot:spring-boot-starter-cache'

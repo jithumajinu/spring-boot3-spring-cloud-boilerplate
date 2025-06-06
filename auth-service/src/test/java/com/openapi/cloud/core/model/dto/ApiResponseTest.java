@@ -115,8 +115,12 @@ class ApiResponseTest {
             ApiResponse.ApiError errorWithCode = ApiResponse.ApiError.builder()
                     .errorCode(ApiErrorCode.INPUT_ERROR)
                     .build();
-            // Just verify it doesn't throw an exception
-            errorWithCode.getMessage();
+            
+            String message = errorWithCode.getMessage();
+
+            System.out.println("Message: " + message);
+            // Verify that the message is not null when an error code is provided
+            assertNotNull(message, "Message should not be null when error code is provided");
         } catch (NullPointerException e) {
             // Skip this test if MessageResourceHolder is not properly initialized
         }
