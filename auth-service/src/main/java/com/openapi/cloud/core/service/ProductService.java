@@ -1,6 +1,6 @@
 package com.openapi.cloud.core.service;
 
-import com.openapi.cloud.core.model.dto.ModelPage;
+import com.example.acid.web.model.ModelPage;
 import com.openapi.cloud.core.model.dto.ProductDto;
 import com.openapi.cloud.core.model.dto.request.GetAllProductRequest;
 

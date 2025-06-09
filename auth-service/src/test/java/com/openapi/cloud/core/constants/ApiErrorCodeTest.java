@@ -1,5 +1,6 @@
 package com.openapi.cloud.core.constants;
 
+import com.example.acid.web.constants.ApiErrorCode;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

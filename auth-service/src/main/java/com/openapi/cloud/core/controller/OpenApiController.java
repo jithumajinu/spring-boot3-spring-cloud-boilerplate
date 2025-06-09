@@ -1,26 +1,32 @@
 package com.openapi.cloud.core.controller;
 
+import com.example.acid.web.constants.ApiErrorCode;
+import com.example.acid.web.model.ModelPage;
+import com.example.acid.web.model.ApiResponse;
+import com.example.acid.web.model.ApiResponse.ApiError;
+
 import com.openapi.cloud.core.annotations.OpenApiOperations;
-import com.openapi.cloud.core.constants.ApiErrorCode;
 import com.openapi.cloud.core.constants.NotificationType;
 import com.openapi.cloud.core.exception.ProductNotFoundException;
 import com.openapi.cloud.core.mapper.ProductMapper;
 import com.openapi.cloud.core.model.ValidationGroups;
-import com.openapi.cloud.core.model.dto.ApiResponse;
-import com.openapi.cloud.core.model.dto.ApiResponse.ApiError;
-import com.openapi.cloud.core.model.dto.ModelPage;
 import com.openapi.cloud.core.model.dto.ProductDto;
 import com.openapi.cloud.core.model.dto.request.GetAllProductRequest;
 import com.openapi.cloud.core.model.dto.request.ProductRequest;
+import com.openapi.cloud.core.service.MessageResourceHolder;
 import com.openapi.cloud.core.service.ProductService;
 import com.openapi.cloud.core.service.UserNotificationService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+// import com.example.acid.web.GreetingService
 
 import java.util.List;
 
@@ -29,8 +35,11 @@ import java.util.List;
 @RequestMapping("/openApis")
 public class OpenApiController extends AbstractCoreUtilController {
 
+    @Autowired
     private final ProductService productService;
+
     private final UserNotificationService notificationService;
+
 
     public OpenApiController(ProductService productService, UserNotificationService notificationService) {
         this.productService = productService;
@@ -96,9 +105,12 @@ public class OpenApiController extends AbstractCoreUtilController {
             return responseBuilder
                     .error(ApiError.builder()
                             .errorCode(ApiErrorCode.INPUT_ERROR)
+                            .message(MessageResourceHolder.get().getLabel(ApiErrorCode.INPUT_ERROR.getLabel()))
                             .errors(formatInputErrors(bindingResult))
                             .build())
                     .build();
+
+
         }
         ProductDto newProduct = productService.createProduct(ProductMapper.MAPPER.toDto(productRequest));
         responseBuilder.data(newProduct);

@@ -1,9 +1,9 @@
 package com.openapi.cloud.core.service.impl;
 
-import com.openapi.cloud.core.constants.DeleteFlag;
+import com.example.acid.web.constants.DeleteFlag;
 import com.openapi.cloud.core.exception.ResourceNotFoundException;
 import com.openapi.cloud.core.mapper.ProductMapper;
-import com.openapi.cloud.core.model.dto.ModelPage;
+import com.example.acid.web.model.ModelPage;
 import com.openapi.cloud.core.model.dto.ProductDto;
 import com.openapi.cloud.core.model.dto.request.GetAllProductRequest;
 import com.openapi.cloud.core.model.dto.request.ProductPageCondition;
@@ -13,6 +13,7 @@ import com.openapi.cloud.core.service.ProductService;
 import com.openapi.cloud.core.util.PageUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
@@ -27,6 +28,8 @@ import java.util.List;
 @Slf4j
 public class ProductServiceImpl implements ProductService {
 
+
+    @Autowired
     ProductRepository productRepository;
 
     @Override

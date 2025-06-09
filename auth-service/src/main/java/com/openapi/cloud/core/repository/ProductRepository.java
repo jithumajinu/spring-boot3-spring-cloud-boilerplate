@@ -1,6 +1,6 @@
 package com.openapi.cloud.core.repository;
 
-import com.openapi.cloud.core.constants.DeleteFlag;
+import com.example.acid.web.constants.DeleteFlag;
 import com.openapi.cloud.core.model.dto.request.ProductPageCondition;
 import com.openapi.cloud.core.model.entities.Product;
 import com.openapi.cloud.core.repository.specification.ProductSpecification;
@@ -22,7 +22,7 @@ public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpec
 
     List<Product> findAllByDeleteFlag(DeleteFlag flag);
 
-    @Query("SELECT e FROM Product e WHERE e.deleteFlag = com.openapi.cloud.core.constants.DeleteFlag.ACTIVE")
+    @Query("SELECT e FROM Product e WHERE e.deleteFlag = com.example.acid.web.constants.DeleteFlag.ACTIVE")
     List<Product> findAllProduct();
 
 

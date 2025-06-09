@@ -35,7 +35,6 @@ sonarqube {
 }
 
 
-
 //bootRun {
 //	environment SPRING_PROFILES_ACTIVE : environment.SPRING_PROFILES_ACTIVE ?: 'local'
 //}
@@ -52,7 +51,15 @@ sonarqube {
 
 repositories {
     mavenCentral()
-
+    // Add local Nexus repository
+    maven {
+        url "http://192.168.3.9:8081/repository/maven-releases/"
+        allowInsecureProtocol = true
+        credentials {
+            username = "admin"
+            password = "Krish@1994"
+        }
+    }
 }
 
 ext {
@@ -91,9 +98,12 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
     implementation 'io.jsonwebtoken:jjwt-impl:0.11.2'
     implementation 'io.jsonwebtoken:jjwt-jackson:0.11.2'
-    
-    // Add common-module dependency
-   // implementation 'com.github.jithumajinu:common-module:1.0.0'
+
+    // Use local common-module during development
+    implementation('com.example.acid.web:common-module:2.0.0')
+
+    // Use remote common-module for production
+    // implementation 'com.example.acid.web:common-module:1.0.0'
 
     // Cache dependencies
     implementation 'org.springframework.boot:spring-boot-starter-cache'

@@ -1,6 +1,6 @@
 package com.openapi.cloud.core.model.entities;
 
-import com.openapi.cloud.core.model.entities.audit.UserDateAudit;
+import com.example.acid.web.model.audit.UserDateAudit;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;

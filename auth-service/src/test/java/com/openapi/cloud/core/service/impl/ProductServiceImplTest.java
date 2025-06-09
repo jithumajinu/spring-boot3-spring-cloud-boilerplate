@@ -1,9 +1,9 @@
 package com.openapi.cloud.core.service.impl;
 
-import com.openapi.cloud.core.constants.DeleteFlag;
-import com.openapi.cloud.core.constants.PagingSize;
+import com.example.acid.web.constants.DeleteFlag;
+import com.example.acid.web.constants.PagingSize;
 import com.openapi.cloud.core.exception.ResourceNotFoundException;
-import com.openapi.cloud.core.model.dto.ModelPage;
+import com.example.acid.web.model.ModelPage;
 import com.openapi.cloud.core.model.dto.ProductDto;
 import com.openapi.cloud.core.model.dto.request.GetAllProductRequest;
 import com.openapi.cloud.core.model.dto.request.ProductSortBy;

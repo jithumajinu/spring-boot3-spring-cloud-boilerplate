@@ -1,6 +1,6 @@
 package com.openapi.cloud.core.exception;
 
-import com.openapi.cloud.core.model.dto.ApiErrorResponse;
+import com.example.acid.web.model.ApiErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

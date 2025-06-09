@@ -1,6 +1,6 @@
 package com.openapi.cloud.core.controller;
 
-import com.openapi.cloud.core.model.dto.ApiResponse;
+import com.example.acid.web.model.ApiResponse;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

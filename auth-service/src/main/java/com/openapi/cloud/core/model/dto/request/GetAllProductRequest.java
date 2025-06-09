@@ -1,6 +1,6 @@
 package com.openapi.cloud.core.model.dto.request;
 
-import com.openapi.cloud.core.constants.PagingSize;
+import com.example.acid.web.constants.PagingSize;
 import lombok.*;
 import java.io.Serializable;
 

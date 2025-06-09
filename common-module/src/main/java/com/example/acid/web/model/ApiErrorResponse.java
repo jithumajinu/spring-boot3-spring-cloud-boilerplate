@@ -1,7 +1,9 @@
-package com.openapi.cloud.core.model.dto;
+package com.example.acid.web.model;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.http.HttpStatus;
 import lombok.*;
+import org.springframework.http.HttpStatus;
+
 import java.time.LocalDateTime;
 
 @Getter

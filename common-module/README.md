@@ -65,7 +65,7 @@ cd ../consumer-app
 
 1. Create an instance of GreetingService:
 ```java
-import com.example.common.GreetingService;
+import com.openapi.cloud.core.acid.web.GreetingService;
 
 GreetingService greetingService = new GreetingService();
 String greeting = greetingService.greet("World");
@@ -76,7 +76,7 @@ System.out.println(greeting); // Outputs: Hello, World!
 
 Using the GreetingService in a Spring Boot application:
 ```java
-import com.example.common.GreetingService;
+import com.openapi.cloud.core.acid.web.GreetingService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

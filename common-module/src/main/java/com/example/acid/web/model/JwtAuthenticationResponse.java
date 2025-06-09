@@ -1,8 +1,9 @@
-package com.openapi.cloud.core.model.dto;
+package com.example.acid.web.model;
 
 import lombok.*;
+
 import java.io.Serializable;
-import java.util.*;
+import java.util.List;
 
 
 @Getter

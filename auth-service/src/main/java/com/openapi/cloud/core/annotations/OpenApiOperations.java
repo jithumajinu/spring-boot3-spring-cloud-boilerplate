@@ -19,7 +19,7 @@ public interface OpenApiOperations {
             responses = {
                     @ApiResponse(responseCode = "200", content = {
                             @Content(mediaType = "application/json", array = @ArraySchema(
-                                    schema = @Schema(implementation = com.openapi.cloud.core.model.dto.ApiResponse.class)))
+                                    schema = @Schema(implementation = com.example.acid.web.model.ApiResponse.class)))
                     }),
                     @ApiResponse(responseCode = "401", ref = "unauthorizedStatus"),
                     @ApiResponse(responseCode = "500", ref = "internalServerErrorStatus"),
@@ -48,7 +48,7 @@ public interface OpenApiOperations {
             responses = {
                     @ApiResponse(responseCode = "200", content = {
                             @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = com.openapi.cloud.core.model.dto.ApiResponse.class))
+                                    schema = @Schema(implementation = com.example.acid.web.model.ApiResponse.class))
                     }),
                     @ApiResponse(responseCode = "401", ref = "unauthorizedStatus"),
                     @ApiResponse(responseCode = "500", ref = "internalServerErrorStatus"),

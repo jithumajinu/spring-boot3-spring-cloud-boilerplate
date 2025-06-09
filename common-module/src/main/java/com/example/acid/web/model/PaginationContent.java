@@ -1,20 +1,12 @@
-package com.openapi.cloud.core.model.dto;
-
-import java.io.Serializable;
-import java.util.List;
-
-import org.apache.commons.lang3.StringUtils;
+package com.example.acid.web.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Lists;
+import lombok.*;
+import org.apache.commons.lang3.StringUtils;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter

@@ -1,9 +1,10 @@
 package com.openapi.cloud.core.controller;
 
-import com.openapi.cloud.core.constants.ApiErrorCode;
+import com.example.acid.web.constants.ApiErrorCode;
+import com.example.acid.web.model.ApiResponse;
+import com.example.acid.web.model.JwtAuthenticationResponse;
+
 import com.openapi.cloud.core.exception.AppException;
-import com.openapi.cloud.core.model.dto.ApiResponse;
-import com.openapi.cloud.core.model.dto.JwtAuthenticationResponse;
 import com.openapi.cloud.core.model.dto.request.LoginRequest;
 import com.openapi.cloud.core.model.dto.request.SignUpRequest;
 import com.openapi.cloud.core.model.entities.Role;
@@ -18,7 +19,6 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

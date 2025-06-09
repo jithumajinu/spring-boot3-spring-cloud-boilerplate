@@ -1,6 +1,6 @@
 package com.openapi.cloud.core.model.entities;
 
-import com.openapi.cloud.core.model.entities.audit.DateAudit_;
+import com.example.acid.web.model.audit.DateAudit_;
 import jakarta.persistence.metamodel.SingularAttribute;
 import jakarta.persistence.metamodel.StaticMetamodel;
 

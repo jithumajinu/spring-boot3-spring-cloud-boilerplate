@@ -5,8 +5,19 @@ plugins {
     id 'io.spring.dependency-management' version '1.1.7'
 }
 
-group = 'com.github.jithumajinu'
-version = '1.0.0.RELEASE'
+group = 'com.example.acid.web'
+archivesBaseName = 'common-module'
+version = '2.0.0'
+
+// Disable bootJar since this is a library module
+bootJar {
+    enabled = false
+}
+
+// Enable jar task for library publishing
+jar {
+    enabled = true
+}
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -30,6 +41,8 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
     implementation 'io.jsonwebtoken:jjwt-impl:0.11.2'
     implementation 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
 
 }
 repositories {
@@ -40,7 +53,7 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
-            
+
             // Optional: customize artifact details
             groupId = project.group
             artifactId = project.name
@@ -57,15 +70,16 @@ publishing {
                 password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
             }
         }
-        
+
         // Add local Nexus repository
         maven {
             name = "LocalNexus"
-            url = uri("http://localhost:8081/repository/maven-releases/")
+            url = uri("http://192.168.3.9:8081/repository/maven-releases/")
+//            url = uri("http://localhost:8081/repository/maven-releases/")
             allowInsecureProtocol = true
             credentials {
                 username = "admin"
-                password = ""
+                password = "Krish@1994"
             }
         }
     }

@@ -1,6 +1,6 @@
-package com.example.common;
+package com.example.acid.web;
 
-public class GreetingService {
+public class AcidService {
     public String greet(String name) {
         return "Hello, " + name + "!";
     }

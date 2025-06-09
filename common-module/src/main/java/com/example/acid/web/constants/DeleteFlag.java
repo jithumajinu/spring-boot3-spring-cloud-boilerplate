@@ -1,4 +1,4 @@
-package com.openapi.cloud.core.constants;
+package com.example.acid.web.constants;
 
 import lombok.RequiredArgsConstructor;
 

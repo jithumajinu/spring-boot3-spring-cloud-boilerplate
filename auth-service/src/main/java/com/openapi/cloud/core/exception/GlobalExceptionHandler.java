@@ -1,7 +1,6 @@
 package com.openapi.cloud.core.exception;
 
-import com.openapi.cloud.core.model.dto.ApiErrorResponse;
-
+import com.example.acid.web.model.ApiErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

@@ -1,21 +1,18 @@
-package com.openapi.cloud.core.model.dto;
+package com.example.acid.web.model;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.Maps;
-import com.openapi.cloud.core.service.MessageResourceHolder;
+// import com.example.acid.web.component.MessageResourceHolder;
+import com.example.acid.web.constants.ApiErrorCode;
+import lombok.*;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
-import com.openapi.cloud.core.constants.ApiErrorCode;
 import org.apache.commons.lang3.StringUtils;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Map;
 
 @AllArgsConstructor
 @Getter
@@ -90,9 +87,10 @@ public class ApiResponse<T> implements Serializable {
             if (StringUtils.isNotBlank(this.message)) {
                 return this.message;
             }
-            if (this.errorCode != null) {
-                return MessageResourceHolder.get().getLabel(this.errorCode.getLabel());
-            }
+//            if (this.errorCode != null) {
+//                //return MessageResourceHolder.get().getLabel(this.errorCode.getLabel());
+//                return "";
+//            }
             return null;
         }
 
